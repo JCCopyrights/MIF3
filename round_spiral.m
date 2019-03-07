@@ -1,4 +1,6 @@
 function X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	%X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% Creates a round spiral - PCB Flat Inductors
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
 	Rz=[cos(phiz),-sin(phiz),0;sin(phiz),cos(phiz),0;0,0,1];

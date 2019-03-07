@@ -1,4 +1,6 @@
 function X = helix_spiral(N,r0,h,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% X = helix_spiral(N,r0,h,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% Creates a Helicoidal spiral
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
 	Rz=[cos(phiz),-sin(phiz),0;sin(phiz),cos(phiz),0;0,0,1];

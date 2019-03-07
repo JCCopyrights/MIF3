@@ -1,4 +1,7 @@
 function X = solenoid_spiral(N,r0,h,phir,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% X = solenoid_spiral(N,r0,h,phir,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% Creates a solenoid spiral
+	% The next turns begins at phir, and continous increasing until 2pi+phi0
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
 	Rz=[cos(phiz),-sin(phiz),0;sin(phiz),cos(phiz),0;0,0,1];

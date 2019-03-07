@@ -1,4 +1,5 @@
 function [L,R,Frequency]=fasthenry_runner(file_name)
+	% [L,R,Frequency]=fasthenry_runner(file_name)
 	ax=actxserver('FastHenry2.Document');
 	%pwd returns the current working directory
 	ax.invoke('Run',[pwd '/' file_name]);
