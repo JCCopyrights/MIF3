@@ -31,5 +31,5 @@ function file_name=fasthenry_creator(file_name,coils,freq,w,th,nhinc,nwinc)
 	fprintf(fast_henry,'.freq fmin=%d fmax=%d ndec=1', freq, freq);
 	fprintf(fast_henry,'\n');
 	fprintf(fast_henry,'.end');
-	fclose(fast_henry)
+	fclose(fast_henry);
 end
