@@ -1,6 +1,6 @@
 function X = square_spiral(N,A,L,d,x0,y0,z0,phix,phiy,phiz)
-	%X = square_spiral(N,A,L,d,x0,y0,z0,phix,phiy,phiz)
-	%Creates a square spiral - PCB Inductor
+	% X = square_spiral(N,A,L,d,x0,y0,z0,phix,phiy,phiz)
+	% Creates a square spiral - PCB Inductor
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
 	Rz=[cos(phiz),-sin(phiz),0;sin(phiz),cos(phiz),0;0,0,1];
@@ -29,13 +29,12 @@ function X = square_spiral(N,A,L,d,x0,y0,z0,phix,phiy,phiz)
 		X(:,i)=transpose(Rz*[X(1,i);X(2,i);X(3,i)]);
 		X(:,i)=X(:,i)+[x0;y0;z0];
 	end
-	plot3(X(1,:),X(2,:),X(3,:))
-	grid on
-	xlabel('X')
-	ylabel('Y')
-	zlabel('Z')
-	grid on;
-	hold on;
+	%plot3(X(1,:),X(2,:),X(3,:))
+	%grid on
+	%xlabel('X')
+	%ylabel('Y')
+	%zlabel('Z')
+	%hold on;
 end
 
 

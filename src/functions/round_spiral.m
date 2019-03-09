@@ -1,5 +1,5 @@
 function X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
-	%X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
+	% X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
 	% Creates a round spiral - PCB Flat Inductors
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
@@ -19,12 +19,12 @@ function X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz)
 		X(:,i)=transpose(Rz*[X(1,i);X(2,i);X(3,i)]);
 		X(:,i)=X(:,i)+[x0;y0;z0];
 	end
-	plot3(X(1,:),X(2,:),X(3,:))
-	grid on
-	xlabel('X')
-	ylabel('Y')
-	zlabel('Z')
-	hold on;
+	%plot3(X(1,:),X(2,:),X(3,:))
+	%grid on
+	%xlabel('X')
+	%ylabel('Y')
+	%zlabel('Z')
+	%hold on;
 end
 
 

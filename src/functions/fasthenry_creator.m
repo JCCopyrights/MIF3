@@ -1,4 +1,4 @@
-function file_name=fasthenry_creator(file_name,coils,freq,w,th,nhinc,nwinc)
+function file_name=fasthenry_creator(file_name,coils,freq)
 	%file_name=fasthenry_creator(file_name,coils,freq,w,th,nhinc,nwinc)
 	%This function will take coils as input and generate a FastHenry2 compatible output
 	%Beware that file_name must be a string 'This_is_a_File_Name'
@@ -8,22 +8,29 @@ function file_name=fasthenry_creator(file_name,coils,freq,w,th,nhinc,nwinc)
 	fast_henry=fopen(file_name,'w'); 
 	fprintf(fast_henry,'* FastHenry2 File Automatically Generated.... JCCopyrights 2019\n');
 	fprintf(fast_henry,'.Units MM\n');
-	fprintf(fast_henry,'.Default z=0 sigma=5.8e4 w=%g h=%g nhinc=%g nwinc=%g\n',w,th,nhinc,nwinc);
+	fprintf(fast_henry,'.Default z=0 sigma=5.8e4 w=%g h=%g nhinc=%g nwinc=%g\n',1,1,2,2);
+	
 	%Notice that ALL the coils will be made with this conductors @TODO: Different conductors for different coils
 	index=1;%Will assure no overlaping between Nodes for different coils
 	%Generates Nodes and Segments for every Coil Introduced
 	for j=1:1:size(coils,2)
+		%Nodes ONLY depend of geometry
 		fprintf(fast_henry,'\n*Coil %d Nodes:\n', j);
-		X=cell2mat(coils(j));
+		coil=cell2mat(coils(j));
+		X=coil.X; %coil geometry
 		for i=index:1:index+size(X,2)-1
 			fprintf(fast_henry,'N%d x=%g y=%g z=%g\n',i,X(1,i-index+1),X(2,i-index+1),X(3,i-index+1));
 		end
+		
+		%Segments include materials, coductors and discretization propierties
 		fprintf(fast_henry,'\n*Coil %d Segments:\n', j);
 		for i=index:1:index+size(X,2)-2
-			fprintf(fast_henry,'E%d N%d N%d\n',i,i,i+1);    
+			fprintf(fast_henry,'E%d N%d N%d w = %g h = %g sigma = %g nhinc = %g nwinc = %g rh = %g rw = %g\n', ...
+			i,i,i+1,coil.w,coil.h,coil.sigma,coil.nhinc,coil.nwinc,coil.rh,coil.rw);    
+			
 		end
-		fprintf(fast_henry,'\n*Coil %d Electric Port:\n', j);
-		fprintf(fast_henry,'.external N%d N%d',index,index+size(X,2)-1); 
+		fprintf(fast_henry,'\n*Coil %d "%s" Electric Port:\n', j,coil.coil_name);
+		fprintf(fast_henry,'.external N%d N%d %s' ,index,index+size(X,2)-1, coil.coil_name); 
 		fprintf(fast_henry,'\n');
 		index=index+size(X,2);
 	end
