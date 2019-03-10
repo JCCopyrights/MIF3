@@ -1,9 +1,23 @@
+%% FastHenry2 Runner
+% [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
+%
+% Tries to execute the file file_name with Fasthery2 automations
+% Extra parameters can be added via directives to the FastHenry2 execution
+% If show is true, the FastHenry2 window will open to follow the execution
+%% Parameters
+% * @param 	*file_name*		FastHenry script to run
+%
+% * @param 	*directives*	String of Extra directives to run FastHenry2
+%
+% * @param 	*show*			Boolean Activates the FastHenry2 GUI
+%
+% * @retval	*L* 			Array if Inductances
+%
+% * @retval	*R* 			Array of Resistances
+%
+% * @retval	*Frequency* 	Array of Frequencies FastHenry2 Script is Evaluated
+%% Code
 function [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
-	% [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
-	% Tries to execute the file file_name with fasthery2 
-	% Extra parameters can be added via directives to the FastHenry2 execution
-	% If show is true, the FastHenry2 window will open to follow the execution
-
 	ax=actxserver('FastHenry2.Document');
 	%pwd returns the current working directory
 	if show
