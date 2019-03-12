@@ -1,12 +1,12 @@
 addpath('../functions')
 
-X = round_spiral(15, 15, 1, 0, 1500, 0, 0, 0, 0, 0, 0);
+X = square_spiral(15, 580,420,6.24, 0, 0, 0, 0, 0, 0);
 %Y = round_spiral(5, 15, 0.5, 0, 1000, 0, 0, 15, 0, 0, 0);
 %X = square_spiral(5,10,10,0.2,0,0,0,0,0,0);
-Y = round_spiral(20, 5, 0, 0, 1500, 0, 0, -15, 0, 0, 0);
+Y = square_spiral(17,280, 280,3.88, 0, 0, -150, 0, 0, 0);
 
-primary=generate_coil('primary',X,5.8e4,0.2,0.2,2,2,2.0,2.0);
-secundary=generate_coil('secundary',Y,5.8e4,0.2,0.2,2,2,2.0,2.0);
+primary=generate_coil	('primary'	,X,5.8e4,0.05,0.05,2,2,2.0,2.0);
+secundary=generate_coil	('secundary',Y,5.8e4,0.05,0.05,2,2,2.0,2.0);
 
 coils={primary,secundary};
 figure();
@@ -21,7 +21,7 @@ title('WPT Topology');
 legend({primary.coil_name,secundary.coil_name},'Location','east')
 legend('boxoff')
 
-freq=300e3; 
+freq=85e3; 
 [L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',true);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 
