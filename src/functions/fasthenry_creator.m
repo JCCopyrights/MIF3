@@ -3,7 +3,7 @@
 %
 % This function will take coils as input and generate a FastHenry2 compatible output
 % Beware that file_name must be a string 'This_is_a_File_Name'
-% Coils must be a cell array of an arbitrary number of coils 
+% Coils must be a cell array of an arbitrary number of coils units in meters [m]
 %% Parameters
 % * @param 	*file_name*	Name of file to be created
 %
@@ -17,7 +17,7 @@ function file_name=fasthenry_creator(file_name,coils,freq)
 	file_name=[file_name '.inp'];
 	fast_henry=fopen(file_name,'w'); 
 	fprintf(fast_henry,'* FastHenry2 File Automatically Generated.... JCCopyrights 2019\n');
-	fprintf(fast_henry,'.Units MM\n');
+	fprintf(fast_henry,'.Units M\n');%S.I.
 	fprintf(fast_henry,'.Default z=0 sigma=5.8e4 w=%g h=%g nhinc=%g nwinc=%g\n',1,1,2,2);
 	index=1;%Will assure no overlaping between Nodes for different coils
 	%Generates Nodes and Segments for every Coil Introduced

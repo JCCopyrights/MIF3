@@ -1,19 +1,25 @@
+%% WPT SAE standard
+% Calculate parameters and test them agains a data bank
 addpath('../functions')
-i=1;
-L1=zeros(1,16);
-L2=zeros(1,16);
-M=zeros(1,16);
-R1=zeros(1,16);
-R2=zeros(1,16);;
+
+L1=zeros(1,16); L2=zeros(1,16); M=zeros(1,16);
+R1=zeros(1,16); R2=zeros(1,16);
 k=zeros(1,16);
+mu0=4*pi*1e-7; 		%Permeability
+sigma=5.96e7; 		%Conductivity
+
+w=0.1e-3; h=0.1e-3; freq=85e3;
+i=1;
 for y=0:25:75
 	for x=0:25:75
-		X = square_spiral(15, 580,420,6.24, 0, 0, 0, 0, 0, 0);
-		Y = square_spiral(17,280, 280,3.88, x, y, 150, 0, 0, 0);
-		primary=generate_coil	('primary'	,X,5.8e4,0.1,0.1,2,2,2.0,2.0);
-		secundary=generate_coil	('secundary',Y,5.8e4,0.1,0.1,2,2,2.0,2.0);
+		X = square_spiral(15, 580*1e-3,420*1e-3,6.24*1e-3, 0, 0, 0, 0, 0, 0);
+		Y = square_spiral(17,280*1e-3, 280*1e-3,3.88*1e-3, x*1e-3, y*1e-3, 150*1e-3, 0, 0, 0);
+		rh=2; rw=2; %Relation between discretization filaments
+		delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); %Skin effect
+		[nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta);
+		primary=generate_coil	('primary'	,X,sigma,w,h,nhinc,nwinc,rh,rw);
+		secundary=generate_coil	('secundary',Y,sigma,w,h,nhinc,nwinc,rh,rw);
 		coils={primary,secundary};
-		freq=85e3; 
 		[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',true);
 		R=squeeze((R(1,:,:)));
 		L=squeeze((L(1,:,:)));	
@@ -27,6 +33,7 @@ for y=0:25:75
 	end
 end
 
+%Test and simulation Results
 L1test=0.00026866*ones(1,16);
 L2test=0.00021768*ones(1,16);
 R1test=0.440295*ones(1,16);
@@ -39,8 +46,7 @@ R1error=100*abs(R1test-R1)./R1test;
 R2error=100*abs(R2test-R2)./R2test;
 Merror=100*abs(Mtest-M)./Mtest;
 kerror=100*abs(ktest-k)./ktest;
-
-
+%Visualization
 figure(); hold on;
 plot(L1); plot(L1test);
 plot(L2); plot(L2test);
