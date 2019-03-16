@@ -17,10 +17,12 @@ delta=sqrt(2*(1/5.8e7)/(2*pi*freq*mu0)); %Skin effect
 range=20;
 L1_sq=zeros(range-1,76); L2_sq=zeros(range-1,76);
 R1_sq=zeros(range-1,76); R2_sq=zeros(range-1,76); k_sq=zeros(range-1,76);
-
+f=waitbar(0,'Initialization');
 for N1=2:1:range
 	i=1;
 	for d1=0.001e-3:0.1e-3:15e-3/N1
+		text = sprintf('N1: %i : d1: %g', N1,d1);
+		waitbar(N1/range,f,text);
 		X = square_spiral(N1,D1,D1,d1,0,0,0,0,0,0);
 		Y = square_spiral(N2,D2,D2,d2,0, 0,-z, 0, 0, 0);
 		[nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta);
@@ -40,12 +42,45 @@ for N1=2:1:range
 		i=i+1;
 	end
 end
+waitbar(1,f,'Simulation ended');
 Q1_sq=2*pi*500e3*L1_sq./R1_sq;
 Q2_sq=2*pi*500e3*L2_sq./R2_sq;
 
 figure();
 hold on;
+xlabel('d1')
+ylabel('K')
+title('K Coupling');
 for i=1:1:19
-	plot(k_sq(i,:))
-end;
+	plot(k_rnd(i,:))
+end
+figure();
+hold on;
+xlabel('d1')
+ylabel('K')
+title('L1');
+for i=1:1:19
+	plot(L1_rnd(i,:))
+end
+figure();
+hold on;
+xlabel('d1')
+ylabel('kQ1Q2')
+title('Efficiency');
+for i=1:1:19
+	plot(Q1_rnd(i,:))
+end
 
+
+figure();
+hold on;
+xlabel('d1')
+ylabel('kQ1Q2')
+title('Efficiency');
+for i=1:1:19
+	eff=k_rnd.*Q1_rnd.*Q2_rnd(i,:);
+	plot(eff(i,:))
+end
+
+
+delete(f)

@@ -3,14 +3,19 @@
 
 addpath('../functions')
 
-N1=15; N2=20;
-R=15e-3; d=1e-3; 
+N1=30; N2=10;
+R1=15e-3; R2=5e-3; d=0.5e-3; h=1.6e-3;
 RES=1000;
-X = round_spiral(N1, R, d, 0, RES, 0, 0, 0, 0, 0, 0);
-%Y = round_spiral(5, 15, 0.5, 0, 1000, 0, 0, 15, 0, 0, 0);
-%X = square_spiral(5,10,10,0.2,0,0,0,0,0,0);
-Y = round_spiral(N2, R/3, d/6, 0, RES, 0, 0, -R, 0, 0, 0);
 
+%X = round_spiral(N1, R1, d, 0, RES, 0, 0, 0, 0, 0, 0);
+%Y = round_spiral(N2, R2, d, 0, RES, 0, 0, -R1, 0, 0, 0);
+%X = square_spiral(N1,2*R1,2*R1,d,0,0,0,0,0,0);
+%Y = square_spiral(N2,2*R2,2*R2,d,0,0,-R1,0,0,0);
+X = square_layer_spiral(N1,2*R1,2*R1,d,1,h,0,0,0,0,0,0);
+Y = square_layer_spiral(N2,2*R2,4*R2,d,4,h,0,0,-R1,0,0,0);
+%Y = square_layer_spiral(N2,2*R2,2*R2,d,4,h,0,0,-R1,0,0,0);
+%Y = round_spiral(N2, R1/3, d/6, 0, RES, 0, 0, -R1, 0, 0, 0);
+%Y = round_layer_spiral(N2,R2,d,0,RES,4,d,0,0,-R1-d,0,0,0);
 %Create the coil structs compatible with FastHenry2
 freq=500e3;			%Frequency
 w=0.5e-3; h=0.5e-3; %Conductor dimensions
@@ -40,10 +45,11 @@ title('WPT Topology');
 legend({primary.coil_name,secundary.coil_name},'Location','east')
 legend('boxoff')
 
-% directives='-o 2 -r 2'; %To Create Spice Models
-directives='';
+directives='-o 2 -r 2'; %To Create Spice Models
+%directives='';
 [L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,true);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
+movefile equiv_circuitROM.spice ..\..\sim %Move the spice model to the simulation folder
 
 disp('Resistance Matrix')
 RC=squeeze((R(1,:,:)));
@@ -67,3 +73,11 @@ for j=1:1:size(Frequency,1)
 		end
 	end
 end
+k=Indct(1,2)/sqrt(Indct(2,2)*Indct(1,1));
+Q1=2*pi*freq*LC(1,1)/RC(1,1);
+Q2=2*pi*freq*LC(2,2)/RC(2,2);
+C1=(1/(2*pi*freq*sqrt(LC(1,1))))^2;
+C2=(1/(2*pi*freq*sqrt(LC(2,2))))^2;
+fact=k^2*Q1*Q2;
+fact/((1+sqrt(1+fact))^2)
+%save(filename) Saves all the Variables in the Workspace
