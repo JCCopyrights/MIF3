@@ -47,7 +47,7 @@ function X = square_layer_spiral(N,A,L,d,layers,h,x0,y0,z0,phix,phiy,phiz,view)
 		else  
 			Xaux=fliplr(square_spiral(N,A,L,d,0,0,-h*(i-1),pi,0,0,false));
 			Xaux(:,1)=X(:,size(X,2))+[0;0;-h];
-			X=[X,Xaux,Xaux(:,size(Xaux,2))+[-d;0;0],Xaux(:,size(Xaux,2))+[-d;A;0] ];
+			X=[X,Xaux,Xaux(:,size(Xaux,2))+[-d;0;0],Xaux(:,size(Xaux,2))+[-d;L;0] ];
 		end
 	end
 	for i=1:size(X,2)

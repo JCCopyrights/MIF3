@@ -52,7 +52,7 @@ xlabel('d1')
 ylabel('K')
 title('K Coupling');
 for i=1:1:19
-	plot(k_rnd(i,:))
+	plot(k_sq(i,:))
 end
 figure();
 hold on;
@@ -60,15 +60,15 @@ xlabel('d1')
 ylabel('K')
 title('L1');
 for i=1:1:19
-	plot(L1_rnd(i,:))
+	plot(L1_sq(i,:))
 end
 figure();
 hold on;
 xlabel('d1')
-ylabel('kQ1Q2')
+ylabel('Q1')
 title('Efficiency');
 for i=1:1:19
-	plot(Q1_rnd(i,:))
+	plot(Q1_sq(i,:))
 end
 
 
@@ -78,7 +78,7 @@ xlabel('d1')
 ylabel('kQ1Q2')
 title('Efficiency');
 for i=1:1:19
-	eff=k_rnd.*Q1_rnd.*Q2_rnd(i,:);
+	eff=k_sq.^2.*Q1_sq.*Q2_sq(i,:);
 	plot(eff(i,:))
 end
 
