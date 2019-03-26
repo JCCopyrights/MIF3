@@ -4,16 +4,14 @@
 addpath('../functions')
 
 N1=7; N2=5;
-r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3; z=r1;
+r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 RES=200;
 % 3A 45degree
-layer1=2;
-layer2=2;
 
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ Allows Spacing to 170V 3A
-w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ Allows Spacing to 150V 1A
+w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
@@ -23,16 +21,15 @@ Vin=4/pi*3.7;
 % Visualization of the topology
 figure();
 
-range=7;
 f=waitbar(0,'Initialization');
 i=1;
-for N1=2:1:range
+for N1=1:1:30
 	j=1;
-	for d1=2*1e-3:1e-3:15e-3/N1
-		text = sprintf('N1: %i : d1: %g', N1,d1);
-		waitbar((N1-1)/range,f,text);
-		X = square_layer_spiral(N1,2*r1,2*r1,d1,layer1,h/(layer1-1),0,0,h,0,0,0);
-		Y = square_layer_spiral(N2,2*r2,4*r2,d2,layer2,h/(layer2-1),0, 0,-z, 0, 0, 0);
+	for N2=1:1:30
+		text = sprintf('N1: %i : N2: %g', N1,N2);
+		waitbar(N1/7,f,text);
+		X = square_incremental_layer_spiral(N1,2*r1,2*r1,d1,h,0,0, h,0,0,0);
+		Y = square_incremental_layer_spiral(N2,2*r2,4*r2,d2,h,0,0,-r1,0,0,0);
 		% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
 		% This Parameter affects A LOT simulation times
 		[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);
@@ -54,7 +51,7 @@ for N1=2:1:range
 		legend({primary.coil_name,secundary.coil_name},'Location','east')
 		legend('boxoff')
 		% FEA Analysis
-		[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',true);
+		[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',false);
 		%To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 		%Obtain DATA
 		disp('Resistance Matrix')
@@ -86,9 +83,7 @@ for N1=2:1:range
 	end
 	i=i+1;
 end
-
 waitbar(1,f,'Simulation ended');
-delete(f)
 
 figure();
 hold on;
@@ -106,3 +101,6 @@ title('maxef');
 for i=1:1:size(opefic,1)
 	plot(opefic(i,:))
 end
+
+
+delete(f)

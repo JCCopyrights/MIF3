@@ -3,23 +3,20 @@
 
 addpath('../functions')
 
-N1=6; N2=4;
-R1=15e-3; R2=5e-3; d1=2*1.33e-3;d2=2*0.5e-3; h=1.6e-3;
-RES=1000;
-
-%X = round_spiral(N1, R1, d, 0, RES, 0, 0, 0, 0, 0, 0);
-%Y = round_spiral(N2, R2, d, 0, RES, 0, 0, -R1, 0, 0, 0);
-%X = square_spiral(N1,2*R1,2*R1,d,0,0,0,0,0,0);
-%Y = square_spiral(N2,2*R2,2*R2,d,0,0,-R1,0,0,0);
-X = square_layer_spiral(N1,2*R1,2*R1,d1,4,h,0,0,h*3,0,0,0);
-Y = square_layer_spiral(N2,2*R2,2*R2,d2,4,h,0,0,-R1,0,0,0);
-%Y = square_layer_spiral(N2,2*R2,2*R2,d,4,h,0,0,-R1,0,0,0);
-%Y = round_spiral(N2, R1/3, d/6, 0, RES, 0, 0, -R1, 0, 0, 0);
-%Y = round_layer_spiral(N2,R2,d,0,RES,4,d,0,0,-R1-d,0,0,0);
+N1=7; N2=5;
+R1=15e-3; R2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
+RES=200;
+% 3A 45?
+layer1=4;
+layer2=4;
+X = square_layer_spiral(N1,2*R1,2*R1,d1,4,h/4,0,0, h,0,0,0);
+Y = square_layer_spiral(N2,2*R2,4*R2,d2,4,h/4,0,0,-R1,0,0,0);
+%X = round_layer_spiral(N1,R1,d1,0,RES,layer1,h/(layer1-1),0,0,h,0,0,0);
+%Y = round_layer_spiral(N2,R2,d2,0,RES,layer2,h/(layer2-1),0,0,-R1,0,0,0);
 %Create the coil structs compatible with FastHenry2
-freq=500e3;			%Frequency
-w1=1.33e-3; h1=1.33e-3; %Conductor dimensions
-w2=0.5e-3; h2=0.5e-3; %Conductor dimensions
+freq=6.79e6;			%Frequency
+w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
@@ -58,6 +55,9 @@ disp(RC);
 disp('Inductances Matrix')
 LC=squeeze((L(1,:,:)));
 disp(LC);
+R1=RC(1,1); R2=RC(2,2);
+L1=LC(1,1); L2=LC(2,2); M=LC(1,2);
+Ro=13.69*4/pi;
 
 %Calculate COUPLING for each Coil and Frequency
 %Coils are numerated in the order of coils={}
@@ -74,11 +74,37 @@ for j=1:1:size(Frequency,1)
 		end
 	end
 end
-k=Indct(1,2)/sqrt(Indct(2,2)*Indct(1,1));
-Q1=2*pi*freq*LC(1,1)/RC(1,1);
-Q2=2*pi*freq*LC(2,2)/RC(2,2);
-C1=(1/(2*pi*freq*sqrt(LC(1,1))))^2;
-C2=(1/(2*pi*freq*sqrt(LC(2,2))))^2;
+Vin=4/pi*3.7;
+k=M/sqrt(L2*L1);
+Q1=2*pi*freq*L1/R1;
+Q2=2*pi*freq*L2/R2;
+C1=(1/(2*pi*freq*sqrt(L1)))^2;
+C2=(1/(2*pi*freq*sqrt(L2)))^2;
 fact=k^2*Q1*Q2;
-fact/((1+sqrt(1+fact))^2)
-%save(filename) Saves all the Variables in the Workspace
+opRo=R2*sqrt(1+fact);
+opRe=(2*pi*freq*M)^2./(R2+opRo);
+maxef=opRo*opRe/((R2+opRo)*(R1+opRe))
+opPout=opRo*opRe*Vin^2/((R2+opRo)*((R1+opRe)^2))
+Re=(2*pi*freq*M)^2/(R2+Ro);
+I1=Vin/(R1+Re)
+I2=I1*2*pi*freq*M/(R2+Ro)
+Pout=Ro*Re*Vin^2/((R2+Ro)*((R1+Re)^2))
+Pin=Vin^2/(R1+Re)
+efic=Ro*Re/((R2+Ro)*(R1+Re))
+Vout=Ro*I2
+%save(filename) Saves all the Variables in the Workspace1
+Ro=linspace(1,100,1000);
+Re=(2*pi*freq*M)^2./(R2+Ro);
+Pin=Vin^2./(R1+Re);
+Pout=Ro.*Re.*Vin.^2./((R2+Ro).*((R1+Re).^2));
+efic=Ro.*Re./((R2+Ro).*(R1+Re));
+
+
+
+
+
+
+
+
+
+

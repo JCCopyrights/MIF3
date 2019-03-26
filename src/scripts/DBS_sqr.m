@@ -8,8 +8,6 @@ N1=6; N2=10;
 R=15e-3; d=1e-3; 
 
 X = square_spiral(N1, R,R,d, 0, 0, 0, 0, 0, 0);
-%Y = round_spiral(5, 15, 0.5, 0, 1000, 0, 0, 15, 0, 0, 0);
-%X = square_spiral(5,10,10,0.2,0,0,0,0,0,0);
 Y = square_spiral(N2,R/3, R/3,d/6, 0, 0, -R, 0, 0, 0);
 
 %Create the coil structs compatible with FastHenry2
