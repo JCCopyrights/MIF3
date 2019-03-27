@@ -2,7 +2,7 @@
 % s=generate_coil(coil_name,X,sigma,w,h,nhinc,nwinc,rh,rw)
 %
 % Packages geometry,conductor information and discretization information into a struct
-% the sctruct is compatible with the function fasthenry_Creator
+% the sctruct is compatible with the function fasthenry_Creator @TODO: Convert coils into a class
 %% Parameters
 % * @param 	*coil_name*	Coil Identifier
 %

@@ -1,5 +1,5 @@
 %% Dummy
-% Script Just to test different spiral geometrys
+% Script Just to test different spiral geometries (to make figures)
 
 addpath('../functions')
 figure();

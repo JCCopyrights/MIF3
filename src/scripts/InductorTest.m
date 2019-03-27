@@ -60,7 +60,7 @@ for i=1:1:size(X,2)-1
 	length=length+sqrt(E(1)^2+E(2)^2+E(3)^2);
 end
 Rdc=(1/sigma)*length/(w^2);
-Rac=length*(1/sigma)/(pi*w*delta); %Una u otra en teoria
+Rac=length*(1/sigma)/(pi*w*delta); %This is really meh
 R=squeeze((R(1,:,:)));
 Rstimated=max(Rdc,Rac);
 text = sprintf('Restim : %g', Rstimated);
