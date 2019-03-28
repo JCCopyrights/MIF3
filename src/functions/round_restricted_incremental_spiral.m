@@ -1,9 +1,9 @@
 %% Round Spiral Layer
-% X = round_incremental_spiral(N,r0,d,phi0,RES,layers,h,x0,y0,z0,phix,phiy,phiz,view)
+% X = round_restricted_incremental_spiral(N,r0,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,view)
 %
 % This function generates a flat circular multilayer spiral - PCB Inductor
-% geometry to be used as a coil. The coil will have enough layers to acomodate all N turns.
-% The coil will be generated with center in (0,0,0) in XY plane. It can be moved using the x0,..,phix... parameters
+% geometry to be used as a coil. The coil will be generated with center
+% in (0,0,0) in XY plane. It can be moved using the x0,..,phix... parameters
 %
 %% Parameters
 % * @param 	*N*		Number of Turns
@@ -16,7 +16,7 @@
 %
 % * @param 	*RES*	Number of  nodes of the Geometry (Discretization)
 %
-% * @param 	*h*		Total height of the coil
+% * @param 	*h*		Distance between layers of the Coil
 %
 % * @param 	*x0*	Center position X
 %
@@ -34,13 +34,13 @@
 %
 % * @retval	*X* 		Geometry nodes
 %% Code	
-function X = round_incremental_spiral(N,r0,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,view)
+function X = round_restricted_incremental_spiral(N,r0,ri,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,view)
 	Rx=[1,0,0;0,cos(phix),-sin(phix);0,sin(phix),cos(phix)];
 	Ry=[cos(phiy),0,sin(phiy);0,1,0;-sin(phiy),0,cos(phiy)];
 	Rz=[cos(phiz),-sin(phiz),0;sin(phiz),cos(phiz),0;0,0,1];	
 	
 	Nremainding=N;
-	Nmax=floor(r0/d);
+	Nmax=floor((r0-ri)/d);
 	i=1;
 	while Nremainding>0
 		if Nremainding>Nmax
@@ -54,9 +54,11 @@ function X = round_incremental_spiral(N,r0,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,
 	end
 
 	hlayer=h/(size(Nlayer,2)-1);
-	
+
 	X=[];
-	for i=1:1:size(Nlayer,2)
+	i=1;
+	X=round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, 0, 0, 0, 0, false);
+	for i=2:1:size(Nlayer,2)
 		if mod(i,2)==1 %Assures the correct direction of the turns
 			X=[X,round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -hlayer*(i-1), 0, 0, 0, false)];
 		else
@@ -83,7 +85,7 @@ function X = round_incremental_spiral(N,r0,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\round_incremental_layer.PNG>>
+% <<..\..\doc\functions\res\round_restricted_incremental_spiral.PNG>>
 % 
 
 

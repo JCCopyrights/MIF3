@@ -23,11 +23,12 @@ figure();
 
 f=waitbar(0,'Initialization');
 i=1;
-for N1=1:1:30
+range=30;
+for N1=1:1:range
 	j=1;
-	for N2=1:1:30
+	for N2=1:1:range
 		text = sprintf('N1: %i : N2: %g', N1,N2);
-		waitbar(N1/7,f,text);
+		waitbar(N1*N2/(range^2),f,text);
 		X = square_incremental_layer_spiral(N1,2*r1,2*r1,d1,h,0,0, h,0,0,0);
 		Y = square_incremental_layer_spiral(N2,2*r2,4*r2,d2,h,0,0,-r1,0,0,0);
 		% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
@@ -70,7 +71,10 @@ for N1=1:1:30
 		opRo(i,j)=R2(i,j)*sqrt(1+fact(i,j));
 		opRe(i,j)=(2*pi*freq*M(i,j))^2/(R2(i,j)+opRo(i,j));
 		opPout(i,j)=opRo(i,j)*opRe(i,j)*Vin^2/((R2(i,j)+opRo(i,j))*((R1(i,j)+opRe(i,j))^2))
-		opefic(i,j)=opRo*opRe(i,j)/((R2(i,j)+opRo)*(R1(i,j)+opRe(i,j)))
+		opefic(i,j)=opRo(i,j)*opRe(i,j)/((R2(i,j)+opRo(i,j))*(R1(i,j)+opRe(i,j)))
+		opI1(i,j)=Vin/(R1(i,j)+opRe(i,j));
+		opI2(i,j)=opI1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+opRo(i,j))
+		opVout(i,j)=opRo(i,j)*opI2(i,j)
 		Re(i,j)=(2*pi*freq*M(i,j))^2/(R2(i,j)+Ro);
 		I1(i,j)=Vin/(R1(i,j)+Re(i,j))
 		I2(i,j)=I1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+Ro)
