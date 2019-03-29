@@ -13,13 +13,13 @@ Z = round_spiral(N, R, d, 0, RES, 0, 0, -R, 0, 0, 0);
 A = round_spiral(N, R, d, 0, RES, 0, R, 0, pi/2, 0, 0);
 
 %Create the coil structs compatible with FastHenry2
-freq=500e3;			%Frequency
+freq=5e3;			%Frequency
 w=0.5e-3; h=0.5e-3; %Conductor dimensions
 rh=10; rw=10; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
 delta=sqrt(2*(1/5.8e7)/(2*pi*freq*mu0)); %Skin effect
-% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
+% Optimize the discretization for each coil
 % This Parameter affects A LOT simulation times
 [nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta);
 coil1=generate_coil('coil1',X,sigma,w,h,nhinc,nwinc,rh,rw);

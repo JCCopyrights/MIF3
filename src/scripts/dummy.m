@@ -9,9 +9,6 @@ hold on;
 %A = solenoid_spiral(10,5,1,3*pi/2,0,1000,0,0,0,0,0,0,true);
 %A = helix_spiral(10,5,1,0,1000,0,0,0,0,0,0, true);
 %A = square_spiral(10,10,10,0.5,0,0,0,0,0,0, true);
-%A=round_layer_spiral(5, 5, 0.5, 0, 1000,4,0.1, 0, 0, 0, 0, 0, 0, true);
-%A=square_layer_spiral(5,10,10,0.5,5,2,0,0,0,0,0,0, true);
-%A=square_incremental_layer_spiral(15,10,10,0.5,5,0,0,0,0,0,0, true);
-A=round_restricted_incremental_spiral(10,20,10,1,0,500,1,0,0,0,0,0,0,true);
-%A=square_restricted_incremental_layer_spiral(10,20,15,5,5,1,1,0,0,0,0,0,0,true);
+A=circular_planar_inductor(10,20,10,1,0,500,1,0,0,0,0,0,0,true);
+%A=rectangular_planar_inductor(10,20,15,5,5,1,1,0,0,0,0,0,0,true);
 

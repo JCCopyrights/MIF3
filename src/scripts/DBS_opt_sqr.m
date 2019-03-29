@@ -3,7 +3,7 @@
 
 addpath('../functions')
 
-N1=7; N2=5;
+N1=4*7; N2=4*5;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3; z=r1;
 RES=200;
 % 3A 45degree
@@ -31,8 +31,8 @@ for N1=2:1:range
 	for d1=2*1e-3:1e-3:15e-3/N1
 		text = sprintf('N1: %i : d1: %g', N1,d1);
 		waitbar((N1-1)/range,f,text);
-		X = square_layer_spiral(N1,2*r1,2*r1,d1,layer1,h/(layer1-1),0,0,h,0,0,0);
-		Y = square_layer_spiral(N2,2*r2,4*r2,d2,layer2,h/(layer2-1),0, 0,-z, 0, 0, 0);
+		X = rectangular_planar_inductor(N1,2*r1,2*r1,0,0,d1,h,0,0, h,0,0,0);
+		Y = rectangular_planar_inductor(N2,2*r2,4*r2,0,0,d2,h,0,0,-z,0,0,0);
 		% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
 		% This Parameter affects A LOT simulation times
 		[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);
