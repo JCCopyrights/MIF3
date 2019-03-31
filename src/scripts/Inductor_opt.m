@@ -2,31 +2,30 @@
 % Iterates different turns and distances for the coils
 
 addpath('../functions')
-N1=10; 
-d1=0.5e-3;
-D1=30e-3;
-RES=400;
+N1=7;
+r1=15e-3;d1=2*1e-3; h=1.6e-3;
+RES=200;
+% 3A 45degree
 
 %Create the coil structs compatible with FastHenry2
-freq=500e3;			%Frequency
-w=0.5e-3; h=0.5e-3; %Conductor dimensions
-rh=10; rw=10; 		%Relation between discretization filaments
+freq=6.79e6;			%Frequency
+w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
+rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
-delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); %Skin effect
+delta=sqrt(2*(1/5.8e7)/(2*pi*freq*mu0)); %Skin effect
 
 figure();
-range=20;
+range=28;
 f=waitbar(0,'Initialization');
-
 	for N1=1:1:range
 		i=1;
-		for d1=w:w/5:D1/(2*N1)
+		for d1=w:w/10:r1/(N1)
 			text = sprintf('N1: %i : d1: %g', N1,d1);
 			waitbar(N1/range,f,text);
 			clf('reset') 
 			hold on;
-			X = round_spiral(N1, D1/2, d1, 0, RES, 0, 0, 0, 0, 0, 0,true);
+			X = rectangular_planar_inductor(N1,2*r1,2*r1,0,0,d1,h,0,0, 0,0,0,0);
 			[nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta);
 			primary=generate_coil('primary',X,sigma,w,h,nhinc,nwinc,rh,rw);
 			coils={primary};
