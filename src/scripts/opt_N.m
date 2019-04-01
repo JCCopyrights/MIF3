@@ -28,7 +28,7 @@ for N1=1:1:range
 	j=1;
 	for N2=1:1:range
 		text = sprintf('N1: %i : N2: %g', N1,N2);
-		waitbar(N1*N2/(range^2),f,text);
+		waitbar((N1-1)*range+N2)/(range^2),f,text);
 		X = rectangular_planar_inductor(N1,2*r1,2*r1,0,0,d1,h,0,0, h,0,0,0);
 		Y = rectangular_planar_inductor(N2,2*r2,4*r2,0,0,d2,h,0,0,-r1,0,0,0);
 		% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
