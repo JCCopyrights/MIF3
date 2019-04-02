@@ -16,7 +16,7 @@ sigma=5.96e7; 		%Conductivity
 delta=sqrt(2*(1/5.8e7)/(2*pi*freq*mu0)); %Skin effect
 
 figure();
-range=10;
+range=30;
 f=waitbar(0,'Initialization');
 	j=1;
 	for N1=1:1:range
@@ -38,7 +38,7 @@ f=waitbar(0,'Initialization');
 			%%%%%%%%%%%%
 			dout=2*r1+w1/2;
 			s=d1-w1;
-			din=dout-(2*N1)*w1-2*(N1-1)*s;
+			din=A0/2;
 			davg=0.5*(dout+din);
 			rho(j,i)=(dout-din)/(dout+din);
 			%%%%%%%%%%%%
