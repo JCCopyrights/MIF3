@@ -1,16 +1,15 @@
-%% Calculate parameters for Round Inductors.
+%% Final Results for WPT topology
 % Example to try with optimized parameters
 
 addpath('../functions')
 
-N1=3*4; N2=4*2;
-R1=15e-3; R2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
+N1=4*3; N2=4*2;
+r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
+z=15e-3;
 RES=200;
 % 3A 45?
-X = rectangular_planar_inductor(N1,2*R1,2*R1,R1,R1,d1,h,0,0, h,0,0,0);
-Y = rectangular_planar_inductor(N2,2*R2,4*R2,R2,R2,d2,h,0,0,-R1,0,0,0);
-%X = round_layer_spiral(N1,R1,d1,0,RES,layer1,h/(layer1-1),0,0,h,0,0,0);
-%Y = round_layer_spiral(N2,R2,d2,0,RES,layer2,h/(layer2-1),0,0,-R1,0,0,0);
+X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, h,0,0,0);
+Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,-z,0,0,0);
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
 w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
@@ -43,7 +42,7 @@ legend('boxoff')
 
 %directives='-o 2 -r 2'; %To Create Spice Models
 directives='';
-[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,true);
+[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,false);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 %movefile equiv_circuitROM.spice ..\..\sim %Move the spice model to the simulation folder
 
@@ -96,7 +95,7 @@ Re=(2*pi*freq*M)^2./(R2+Ro);
 Pin=Vin^2./(R1+Re);
 Pout=Ro.*Re.*Vin.^2./((R2+Ro).*((R1+Re).^2));
 efic=Ro.*Re./((R2+Ro).*(R1+Re));
-
+save('../../data/WPT.mat')%Save all the Variables in the Workspace
 
 
 

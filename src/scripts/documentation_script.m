@@ -1,5 +1,7 @@
 %% Documentation Script
-% Takes EVERYTHING in the functions directory and tries to document it =>PUBLISHER.
+% Takes EVERYTHING in the functions directory that is not a 
+% directory and tries to document it =>PUBLISHER.
+% https://es.mathworks.com/help/matlab/matlab_prog/marking-up-matlab-comments-for-publishing.html
 
 directory=dir('../functions');
 f=waitbar(0,'Initialization');
