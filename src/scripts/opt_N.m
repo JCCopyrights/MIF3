@@ -7,7 +7,7 @@ addpath('../functions')
 N1=7; N2=5;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 RES=200;
-range_N1=4*2;
+range_N1=4*3;
 range_N2=4*2;
 % 3A 45degree
 
@@ -34,8 +34,9 @@ for N1=1:1:range_N1
 	for N2=1:1:range_N2
 		text = sprintf('N1: %i : N2: %g', N1,N2);
 		waitbar(((N1-1)*range_N2+N2)/(range_N1*range_N2),f,text);
-		X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, h,0,0,0);
-		Y = rectangular_planar_inductor(N2,2*r1,2*r1,r1,r1,d2,h,0,0,-r1,0,0,0);
+		c=(N1~=1)*h;
+		X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, c,0,0,0);
+		Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,-r1,0,0,0);
 		[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);	% Optimize the discretization for each coil
 		primary=generate_coil('primary',X,sigma,w1,h1,nhinc,nwinc,rh,rw);
 		[nhinc,nwinc]=optimize_discr(w2,h2,rh,rw,delta);	% Optimize the discretization for each coil
@@ -75,18 +76,18 @@ for N1=1:1:range_N1
 		fact(i,j)=k(i,j)^2*Q1(i,j)*Q2(i,j);
 		opRo(i,j)=R2(i,j)*sqrt(1+fact(i,j));
 		opRe(i,j)=(2*pi*freq*M(i,j))^2/(R2(i,j)+opRo(i,j));
-		opPout(i,j)=opRo(i,j)*opRe(i,j)*Vin^2/((R2(i,j)+opRo(i,j))*((R1(i,j)+opRe(i,j))^2))
+		opPout(i,j)=opRo(i,j)*opRe(i,j)*Vin^2/((R2(i,j)+opRo(i,j))*((R1(i,j)+opRe(i,j))^2));
 		opefic(i,j)=opRo(i,j)*opRe(i,j)/((R2(i,j)+opRo(i,j))*(R1(i,j)+opRe(i,j)))
 		opI1(i,j)=Vin/(R1(i,j)+opRe(i,j));
-		opI2(i,j)=opI1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+opRo(i,j))
-		opVout(i,j)=opRo(i,j)*opI2(i,j)
+		opI2(i,j)=opI1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+opRo(i,j));
+		opVout(i,j)=opRo(i,j)*opI2(i,j);
 		Re(i,j)=(2*pi*freq*M(i,j))^2/(R2(i,j)+Ro);
-		I1(i,j)=Vin/(R1(i,j)+Re(i,j))
-		I2(i,j)=I1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+Ro)
-		Pout(i,j)=Ro*Re(i,j)*Vin^2/((R2(i,j)+Ro)*((R1(i,j)+Re(i,j))^2))
-		Pin(i,j)=Vin^2/(R1(i,j)+Re(i,j))
-		efic(i,j)=Ro*Re(i,j)/((R2(i,j)+Ro)*(R1(i,j)+Re(i,j)))
-		Vout(i,j)=Ro*I2(i,j)
+		I1(i,j)=Vin/(R1(i,j)+Re(i,j));
+		I2(i,j)=I1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+Ro);
+		Pout(i,j)=Ro*Re(i,j)*Vin^2/((R2(i,j)+Ro)*((R1(i,j)+Re(i,j))^2));
+		Pin(i,j)=Vin^2/(R1(i,j)+Re(i,j));
+		efic(i,j)=Ro*Re(i,j)/((R2(i,j)+Ro)*(R1(i,j)+Re(i,j)));
+		Vout(i,j)=Ro*I2(i,j);
 		j=j+1;
 	end
 	i=i+1;
