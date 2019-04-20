@@ -39,7 +39,21 @@ for r1=5e-3:1e-3:20e-3
 	i=i+1;
 end
 waitbar(1,f,'Simulation ended');
-save('../../data/opt_A0_ind.mat')%Save all the Variables in the Workspace
+
+%ADD RHO
+figure();
+hold on;
+xlabel('d1')
+ylabel('Q1')
+title('Q1');
+for i=1:1:range
+	plot(Q1(i,:))
+end
+
+
 
 delete(f)
+save('../../data/opt_A0_ind.mat')%Save all the Variables in the Workspace
+
+
 

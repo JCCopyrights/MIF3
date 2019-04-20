@@ -1,6 +1,6 @@
 %% Optimize size of Primary
 % Example to try with optimized parameters
-
+% For this script visualization of solutions has to be true or it crash....
 addpath('../functions')
 
 N_max=3;
@@ -33,7 +33,7 @@ for N=1:1:N_max
 		for r2=r2_min:r_res:r2_max
 			c=(N~=1)*h;%Compensate the inductor height
 			X = rectangular_planar_inductor(N,2*r1,2*r1,0,0,1e-3,h,0,0, c,0,0,0);
-			Y = rectangular_planar_inductor(N,2*r2,2*r2,0,0,1e-3,h,0,0,-z,0,0,0);
+			Y = rectangular_planar_inductor(N,2*r2,4*r2,0,0,1e-3,h,0,0,-z,0,0,0);
 			%X = circular_planar_inductor(N,2*r1,0,0,0,1e-3,RES,h,0,0,c,0,0,0);
 			%Y = circular_planar_inductor(N,2*r2,0,0,0,1e-3,RES,h,0,0,-z,0,0,0);
 			% Optimize the discretization for each coil
@@ -74,10 +74,22 @@ for N=1:1:N_max
 		i=i+1;
 	end
 end
-waitbar(1,f,'Simulation ended');
-save('../../data/opt_R.mat')%Save all the Variables in the Workspace
-delete(f)
 
+fact=k.^2.*Q1.*Q2;
+efic=fact./(1+sqrt(1+fact)).^2;
+
+figure();
+hold on;
+xlabel('r1')
+ylabel('\eta')
+title('Eficiencia');
+for i=1:1:r2_len
+	plot(r1_min:r_res:r1_max,squeeze(efic(1,:,i)))
+end
+
+waitbar(1,f,'Simulation ended');
+delete(f)
+save('../../data/opt_R.mat')%Save all the Variables in the Workspace
 
 
 

@@ -1,6 +1,6 @@
 %% Optimization for Distance Between Turns
 % Iterates different turns and distances for the coils
-
+% For this script visualization of solutions has to be true or it crash....
 addpath('../functions')
 N1=1;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
@@ -66,12 +66,26 @@ f=waitbar(0,'Initialization');
 			i=i+1;
 		end
 	end
+	
+rho(rho == 0) = NaN;%Delete all non usefull 0
+fact=k.^2.*Q1.*Q2;
+efic=fact./(1+sqrt(1+fact)).^2;
+
+figure();
+hold on;
+xlabel('\rho2')
+ylabel('\eta')
+title('Efficiency');
+for i=1:1:range-1
+	plot(rho(i,:),efic(i,:))
+end
 
 waitbar(1,f,'Simulation ended');
+delete(f)
 save('../../data/opt_d2.mat')%Save all the Variables in the Workspace
 
-rho(rho == 0) = NaN;
 
 
-delete(f)
+
+
 

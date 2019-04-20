@@ -61,15 +61,20 @@ f=waitbar(0,'Initialization');
 	end
 waitbar(1,f,'Simulation ended');
 
+fact=k.^2.*Q1.*Q2;
+efic=fact./(1+sqrt(1+fact)).^2;
+
 figure();
 hold on;
-xlabel('d1')
-ylabel('Q1')
-title('Q1');
+xlabel('A0')
+ylabel('\eta')
+title('Efficiency');
 for i=1:1:range
-	plot(Q1(i,:))
+	plot(0:2*d1:2*r1-2*d1,efic(i,:))
 end
 
-save('../../data/opt_A0.mat')%Save all the Variables in the Workspace
+
 delete(f)
+save('../../data/opt_A0.mat')%Save all the Variables in the Workspace
+
 
