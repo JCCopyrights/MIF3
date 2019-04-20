@@ -13,8 +13,8 @@ range_N2=4*2;
 
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.309e-3;	%Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
+w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2;				%Relation between discretization filaments
 mu0=4*pi*1e-7;			%Permeability
 sigma=5.96e7;			%Conductivity
@@ -93,7 +93,6 @@ for N1=1:1:range_N1
 	i=i+1;
 end
 waitbar(1,f,'Simulation ended');
-save('../../data/opt_N_4layer.mat')%Save all the Variables in the Workspace
 
 figure();
 hold on;
@@ -112,5 +111,5 @@ for i=1:1:size(opefic,1)
 	plot(opefic(i,:))
 end
 
-
+save('../../data/opt_N_4layer.mat')%Save all the Variables in the Workspace
 delete(f)

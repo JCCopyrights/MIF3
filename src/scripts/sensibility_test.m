@@ -13,8 +13,8 @@ r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
+w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
@@ -60,7 +60,7 @@ for z=z_min:res:z_max
 			end
 			%directives='-o 2 -r 2'; %To Create Spice Models
 			directives='';
-			[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,true);
+			[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,false);
 			LC=squeeze((L(1,:,:)));
 			RC=squeeze((R(1,:,:)));
 			R1(m,i,j)=RC(1,1); R2(m,i,j)=RC(2,2);

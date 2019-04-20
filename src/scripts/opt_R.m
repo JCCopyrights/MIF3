@@ -11,8 +11,8 @@ r1_min=2e-3;	r2_min=2e-3; r_res=0.5e-3; z=15e-3;
 
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
+w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity

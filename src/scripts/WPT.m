@@ -3,17 +3,19 @@
 
 addpath('../functions')
 
-N1=4*3; N2=4*2;
+N1=12; N2=6;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 z=15e-3;
 RES=200;
 % 3A 45?
+%Nmax=r1/(d1*2)
+%c=(N>Nmax)*h;%Compensate the inductor height
 X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, h,0,0,0);
 Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,-z,0,0,0);
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.309e-3; %Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.309e-3; %Conductor dimensions 1OZ
+w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
@@ -89,7 +91,6 @@ Pout=Ro*Re*Vin^2/((R2+Ro)*((R1+Re)^2))
 Pin=Vin^2/(R1+Re)
 efic=Ro*Re/((R2+Ro)*(R1+Re))
 Vout=Ro*I2
-%save(filename) Saves all the Variables in the Workspace1
 Ro=linspace(1,100,1000);
 Re=(2*pi*freq*M)^2./(R2+Ro);
 Pin=Vin^2./(R1+Re);

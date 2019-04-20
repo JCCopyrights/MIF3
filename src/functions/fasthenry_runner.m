@@ -25,7 +25,7 @@ function [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
 	end
 	ax.invoke('Run',[pwd '/' file_name ' '  directives]);
 	while(ax.invoke('Isrunning'))
-	pause(0.1);
+	pause(0.1);%@TODO use same handler, this doesn`t work if the simulation is too fast
 	end
 	%names=ax.invoke('GetRowPortNames');
 	L=cell2mat(ax.invoke('GetInductance'));
