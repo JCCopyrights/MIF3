@@ -75,7 +75,7 @@ hold on;
 xlabel('\rho1')
 ylabel('\eta')
 title('Efficiency');
-for i=1:1:range-1
+for i=1:1:size(rho,1)
 	plot(rho(i,:),efic(i,:))
 end
 
