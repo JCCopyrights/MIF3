@@ -1,0 +1,5 @@
+Row 2:  n66  to  n87, port name: secundary
+Row 1:  n1  to  n65, port name: primary
+Impedance matrix for frequency = 6.79e+006 2 x 2
+       1.62404      +257.119j    0.00244265      +4.02384j 
+   0.00250743      +4.05702j      0.320016      +15.8939j 

@@ -34,20 +34,28 @@ for r1=5e-3:1e-3:20e-3
 		R1(i,j)=Rs(1,1);
 		L1(i,j)=Ls(1,1);
 		Q1(i,j)=2*pi*freq*Ls(1,1)/Rs(1,1);
+		%%%%%%%%%%%%
+		dout=2*r1+w1;
+		s=d1-w1;
+		din=dout-(2*N1)*w1-2*(N1-1)*s;
+		davg=0.5*(dout+din);
+		rho(i,j)=(dout-din)/(dout+din);
+			
 		j=j+1;
 	end
 	i=i+1;
 end
+rho(rho == 0) = NaN;%Delete all non usefull 0
 waitbar(1,f,'Simulation ended');
 
 %ADD RHO
 figure();
 hold on;
-xlabel('d1')
+xlabel('\rho')
 ylabel('Q1')
 title('Q1');
 for i=1:1:range
-	plot(Q1(i,:))
+	plot(rho(i,:),Q1(i,:))
 end
 
 

@@ -3,7 +3,7 @@
 
 addpath('../functions')
 
-N1=12; N2=6;
+N1=12; N2=8;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 z=15e-3;
 RES=200;
@@ -42,11 +42,21 @@ title('WPT Topology');
 legend({primary.coil_name,secundary.coil_name},'Location','east')
 legend('boxoff')
 
-%directives='-o 2 -r 2'; %To Create Spice Models
-directives='';
+export_spice=false;
+if export_spice
+	directives='-o 2 -r 2'; %To Create Spice Models
+else
+	directives='';
+end
+
 [L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,false);
+[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',1, '-d0.1'),'-o50 -p4.4',false);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
-%movefile equiv_circuitROM.spice ..\..\sim %Move the spice model to the simulation folder
+
+if export_spice
+	movefile equiv_circuitROM.spice ..\..\sim %Move the spice model to the simulation folder
+end
+
 
 disp('Resistance Matrix')
 RC=squeeze((R(1,:,:)));
@@ -54,6 +64,8 @@ disp(RC);
 disp('Inductances Matrix')
 LC=squeeze((L(1,:,:)));
 disp(LC);
+disp('Capacitance Matrix')
+disp(C);
 R1=RC(1,1); R2=RC(2,2);
 L1=LC(1,1); L2=LC(2,2); M=LC(1,2);
 Ro=13.69*4/pi;
@@ -84,18 +96,14 @@ opRo=R2*sqrt(1+fact);
 opRe=(2*pi*freq*M)^2./(R2+opRo);
 maxef=opRo*opRe/((R2+opRo)*(R1+opRe))
 opPout=opRo*opRe*Vin^2/((R2+opRo)*((R1+opRe)^2))
-Re=(2*pi*freq*M)^2/(R2+Ro);
-I1=Vin/(R1+Re)
-I2=I1*2*pi*freq*M/(R2+Ro)
-Pout=Ro*Re*Vin^2/((R2+Ro)*((R1+Re)^2))
-Pin=Vin^2/(R1+Re)
-efic=Ro*Re/((R2+Ro)*(R1+Re))
-Vout=Ro*I2
 Ro=linspace(1,100,1000);
 Re=(2*pi*freq*M)^2./(R2+Ro);
+I1=Vin./(R1+Re);
+I2=I1*2*pi*freq*M./(R2+Ro);
+Pout=Ro.*Re*Vin^2./((R2+Ro).*((R1+Re).^2));
 Pin=Vin^2./(R1+Re);
-Pout=Ro.*Re.*Vin.^2./((R2+Ro).*((R1+Re).^2));
 efic=Ro.*Re./((R2+Ro).*(R1+Re));
+Vout=Ro.*I2;
 save('../../data/WPT.mat')%Save all the Variables in the Workspace
 
 

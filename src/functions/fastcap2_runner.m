@@ -1,5 +1,5 @@
 %% FastHenry2 Runner
-% [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
+% [C]=fastcap2_runner(file_name,directives,show)
 %
 % Tries to execute the file file_name with Fasthery2 automations
 % Extra parameters can be added via directives to the FastHenry2 execution
@@ -11,26 +11,21 @@
 %
 % * @param 	*show*			Boolean Activates the FastHenry2 GUI
 %
-% * @retval	*L* 			Array if Inductances
+% * @retval	*C* 			Array of Capacitances
 %
-% * @retval	*R* 			Array of Resistances
-%
-% * @retval	*Frequency* 	Array of Frequencies FastHenry2 Script is Evaluated
 %% Code
-function [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
-	ax=actxserver('FastHenry2.Document');
+function [C]=fastcap2_runner(file_name,directives,show)
+	ax=actxserver('FastCap2.Document');
 	%pwd returns the current working directory
 	if show
 		ax.invoke('ShowWindow');
 	end
-	ax.invoke('Run',[pwd '/' file_name ' '  directives]);
+	ax.invoke('Run',['-l' pwd '/' file_name ' '  directives]);
 	while(ax.invoke('IsRunning'))
 	pause(0.1);%@TODO use same handler, this doesn`t work if the simulation is too fast
 	end
 	%names=ax.invoke('GetRowPortNames');
-	L=cell2mat(ax.invoke('GetInductance'));
-	R=cell2mat(ax.invoke('GetResistance'));
-	Frequency=cell2mat(ax.invoke('GetFrequencies'));
+	C=cell2mat(ax.invoke('GetCapacitance'));
 	ax.invoke('Quit');
 	ax=[];
 end

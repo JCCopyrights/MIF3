@@ -1,0 +1,49 @@
+convertHenry - Enrico Di Lorenzo 3/Apr/1998
+
+This utility translates a FastHenry input files into FastCap ones. 
+Every segment is converted into a cube like the ones generated 
+with cubegen_c, but respecting wx, wy, wz specifications (that is,
+segment's spatial orientation is kept). Then segments electrically 
+connected (also with .equiv statments) and belonging to the same
+port are stored together in group files; there will be as many 
+group files as ports in the source file. A FastCap list file will 
+include all group file names as well as a comment line showing 
+the name of the two nodes from which the port is made up in the 
+FastHenry file. 
+You can also specify a custom dielectic constant for the homogeneous
+medium in which panels are (of course, you have to insert manually 
+medium discontinuities, because input file doesn't contain such
+informations), a edge to inner panel width ratio and a 
+discretization step. The latter is defined as the maximum length 
+of a panel's side. Note that segment's end faces are always 
+removed, except when -f option is specified.
+Moreover, you can decide to replace any segment with any other
+structure you have defined in a FastCap file; you only have 
+to specify a string of characters which are included into 
+the segment's name (you can decide, for istance, to substitute 
+every segment containing the string 'ball'; then the segments
+'ball_1a' , 'bouncing_ball' and so on will be replaced with 
+the panels described in file you have chosen, maybe 'sphere.neu'). 
+Remember that to the contents of your file will be given an offset
+corresponding to the spatial position of the FIRST node of the 
+segment which is being replaced. 
+Unfortunately, I was in a hurry when I wrote this routine, so 
+neither uniform nor nonuniform gnd planes are recognized by 
+the software (they are simply ignored); maybe later on.. 
+ 
+ 
+Usage: convertHenry [-n<sourcefile>] [-l<listfile>] [-g<groupfile>] 
+               [-c<dielectric>] [-e<rel edge panel width>] [-d<discr.step>] 
+               [-s<segment name> <file name for substitution>] [-f]
+
+Option    Default   Function 
+-n        fh.inp    Specifies FastHenry source file
+-l        list.lst  Specifies FastCap list file name 
+-g        group     Specifies FastCap group files base name
+-c        1.0       Dielectric constant of the medium 
+-e        0.1       Specifies edge to inner panel width ratio
+-d        100       Discretization step 
+-s         -        Replaces every segment containing the string 
+                    <segment name> with the contents of specified file
+-f         -        Do not remove segment end faces 
+ 
