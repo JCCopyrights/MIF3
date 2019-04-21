@@ -96,20 +96,25 @@ waitbar(1,f,'Simulation ended');
 
 figure();
 hold on;
+grid on;
 xlabel('N2')
-ylabel('W')
-title('Optimal Power');
+ylabel('P')
+title('Opt Power');
 for i=1:1:size(opPout,1)
 	plot(opPout(i,:))
 end
+saveas(gcf,'../../data/graph/opt_N_oppout','svg');
+
 figure();
 hold on;
+grid on;
 xlabel('N2')
-ylabel('maxef')
-title('maxef');
+ylabel('max\eta')
+title('max\eta');
 for i=1:1:size(opefic,1)
 	plot(opefic(i,:))
 end
+saveas(gcf,'../../data/graph/opt_N_opeta','svg');
 
 save('../../data/opt_N_4layer.mat')%Save all the Variables in the Workspace
 delete(f)

@@ -73,12 +73,58 @@ efic=fact./(1+sqrt(1+fact)).^2;
 
 figure();
 hold on;
-xlabel('\rho2')
+grid on;
+xlabel('\rho(d2)')
 ylabel('\eta')
-title('Efficiency');
+title('\eta');
 for i=1:1:size(rho,1)
 	plot(rho(i,:),efic(i,:))
 end
+saveas(gcf,'../../data/graph/opt_d2_eta','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(d2)')
+ylabel('R2')
+title('R2');
+for i=1:1:size(rho,1)
+	plot(rho(i,:),R2(i,:))
+end
+saveas(gcf,'../../data/graph/opt_d2_R2','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(d2)')
+ylabel('L2')
+title('L2');
+for i=1:1:size(rho,1)
+	plot(rho(i,:),L2(i,:))
+end
+saveas(gcf,'../../data/graph/opt_d2_L2','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(d2)')
+ylabel('K')
+title('K');
+for i=1:1:size(rho,1)
+	plot(rho(i,:),k(i,:))
+end
+saveas(gcf,'../../data/graph/opt_d2_k','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(d2)')
+ylabel('Q2')
+title('Q2');
+for i=1:1:size(rho,1)
+	plot(rho(i,:),Q2(i,:))
+end
+saveas(gcf,'../../data/graph/opt_d2_Q2','svg');
 
 waitbar(1,f,'Simulation ended');
 delete(f)

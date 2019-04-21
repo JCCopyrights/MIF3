@@ -80,12 +80,40 @@ efic=fact./(1+sqrt(1+fact)).^2;
 
 figure();
 hold on;
+grid on;
 xlabel('r1')
 ylabel('\eta')
-title('Eficiencia');
+title('\eta');
 for i=1:1:r2_len
 	plot(r1_min:r_res:r1_max,squeeze(efic(1,:,i)))
 end
+saveas(gcf,'../../data/graph/opt_R_eta','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('r1')
+ylabel('K')
+title('K');
+for i=1:1:r2_len
+	plot(r1_min:r_res:r1_max,squeeze(k(1,:,i)))
+end
+saveas(gcf,'../../data/graph/opt_R_k','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('r1')
+ylabel('Q1')
+title('Q1');
+for i=1:1:r2_len
+	plot(r1_min:r_res:r1_max,squeeze(Q1(1,:,i)))
+end
+saveas(gcf,'../../data/graph/opt_R_Q1','svg');
+
+
+
+
 
 waitbar(1,f,'Simulation ended');
 delete(f)

@@ -48,15 +48,40 @@ end
 rho(rho == 0) = NaN;%Delete all non usefull 0
 waitbar(1,f,'Simulation ended');
 
-%ADD RHO
+
 figure();
 hold on;
-xlabel('\rho')
+grid on;
+xlabel('\rho(N1)')
 ylabel('Q1')
 title('Q1');
 for i=1:1:range
 	plot(rho(i,:),Q1(i,:))
 end
+saveas(gcf,'../../data/graph/opt_a0_ind_Q1','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(N1)')
+ylabel('R1')
+title('R1');
+for i=1:1:range
+	plot(rho(i,:),R1(i,:))
+end
+saveas(gcf,'../../data/graph/opt_a0_ind_R1','svg');
+
+figure();
+hold on;
+grid on;
+xlabel('\rho(N1)')
+ylabel('L1')
+title('L1');
+for i=1:1:range
+	plot(rho(i,:),L1(i,:))
+end
+saveas(gcf,'../../data/graph/opt_a0_ind_L1','svg');
+
 
 
 
