@@ -33,7 +33,7 @@ for N=1:1:N_max
 		for r2=r2_min:r_res:r2_max
 			c=(N~=1)*h;%Compensate the inductor height
 			X = rectangular_planar_inductor(N,2*r1,2*r1,0,0,1e-3,h,0,0, c,0,0,0);
-			Y = rectangular_planar_inductor(N,2*r2,4*r2,0,0,1e-3,h,0,0,-z,0,0,0);
+			Y = rectangular_planar_inductor(N,2*r2,2*r2,0,0,1e-3,h,0,0,-z,0,0,0);
 			%X = circular_planar_inductor(N,2*r1,0,0,0,1e-3,RES,h,0,0,c,0,0,0);
 			%Y = circular_planar_inductor(N,2*r2,0,0,0,1e-3,RES,h,0,0,-z,0,0,0);
 			% Optimize the discretization for each coil

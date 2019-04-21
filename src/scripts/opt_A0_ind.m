@@ -24,7 +24,7 @@ for r1=5e-3:1e-3:20e-3
 		text = sprintf('N1: %i', N1);
 		waitbar(i/r1_len,f,text);
 		clf('reset') 
-		X = rectangular_planar_inductor(N1,2*r1,2*r1,0,0,d1,h,0,0, 0,0,0,0,true);
+		X = rectangular_planar_inductor(N1,2*r1,4*r1,0,0,d1,h,0,0, 0,0,0,0,true);
 		[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);
 		primary=generate_coil('primary',X,sigma,w1,h1,nhinc,nwinc,rh,rw);
 		coils={primary};
