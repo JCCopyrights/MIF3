@@ -77,7 +77,7 @@ for N1=1:1:range_N1
 		opRo(i,j)=R2(i,j)*sqrt(1+fact(i,j));
 		opRe(i,j)=(2*pi*freq*M(i,j))^2/(R2(i,j)+opRo(i,j));
 		opPout(i,j)=opRo(i,j)*opRe(i,j)*Vin^2/((R2(i,j)+opRo(i,j))*((R1(i,j)+opRe(i,j))^2));
-		opefic(i,j)=opRo(i,j)*opRe(i,j)/((R2(i,j)+opRo(i,j))*(R1(i,j)+opRe(i,j)))
+		opefic(i,j)=opRo(i,j)*opRe(i,j)/((R2(i,j)+opRo(i,j))*(R1(i,j)+opRe(i,j)));
 		opI1(i,j)=Vin/(R1(i,j)+opRe(i,j));
 		opI2(i,j)=opI1(i,j)*2*pi*freq*M(i,j)/(R2(i,j)+opRo(i,j));
 		opVout(i,j)=opRo(i,j)*opI2(i,j);
@@ -94,6 +94,7 @@ for N1=1:1:range_N1
 end
 waitbar(1,f,'Simulation ended');
 
+linewidth=1.0;
 figure();
 hold on;
 grid on;
@@ -101,7 +102,7 @@ xlabel('N2')
 ylabel('P')
 title('Opt Power');
 for i=1:1:size(opPout,1)
-	plot(opPout(i,:))
+	plot(opPout(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_N_oppout','svg');
 
@@ -112,9 +113,18 @@ xlabel('N2')
 ylabel('max\eta')
 title('max\eta');
 for i=1:1:size(opefic,1)
-	plot(opefic(i,:))
+	plot(opefic(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_N_opeta','svg');
+
+figure();
+surf(opefic,'FaceColor','interp')
+grid on;
+xlabel('N2')
+ylabel('N1')
+zlabel('max\eta')
+title('max\eta');
+saveas(gcf,'../../data/graph/opt_N_opeta_surf','svg');
 
 save('../../data/opt_N_4layer.mat')%Save all the Variables in the Workspace
 delete(f)

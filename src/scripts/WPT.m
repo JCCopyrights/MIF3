@@ -12,6 +12,8 @@ RES=200;
 %c=(N>Nmax)*h;%Compensate the inductor height
 X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, h,0,0,0);
 Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,-z,0,0,0);
+%X = circular_planar_inductor(N1,r1,r1/2,d1,0,RES,h,0,0,h,0,0,0);
+%Y = circular_planar_inductor(N2,r2,r2/2,d2,0,RES,h,0,0,-z,0,0,0);
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
 w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ

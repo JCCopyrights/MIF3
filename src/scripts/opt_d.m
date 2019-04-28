@@ -50,12 +50,14 @@ f=waitbar(0,'Initialization');
 				legend('boxoff')
 			end
 			[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',true);
+			[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',1, '-d0.1'),'-o50 -p4.4',false);
 			RC=squeeze((R(1,:,:)));
 			LC=squeeze((L(1,:,:)));
 			L1(N1-1,i)=LC(1,1); L2(N1-1,i)=LC(2,2); M(N1-1,i)=LC(1,2);
 			R1(N1-1,i)=RC(1,1); R2(N1-1,i)=RC(2,2);			
 			Q1(N1-1,i)=2*pi*freq*L1(N1-1,i)/R1(N1-1,i);
 			Q2(N1-1,i)=2*pi*freq*L2(N1-1,i)/R2(N1-1,i);
+			C1(N1-1,i)=C(1,1)+C(1,2);
 			k(N1-1,i)=M(N1-1,i)/sqrt(L2(N1-1,i)*L1(N1-1,i));
 			%%%%%%%%%%%%
 			dout=2*r1+w1;
@@ -70,6 +72,8 @@ rho(rho == 0) = NaN;%Delete all non usefull 0
 fact=k.^2.*Q1.*Q2;
 efic=fact./(1+sqrt(1+fact)).^2;
 
+linewidth=1.0;
+
 figure();
 hold on;
 grid on;
@@ -77,7 +81,7 @@ xlabel('\rho(d1)')
 ylabel('\eta')
 title('\eta');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),efic(i,:))
+	plot(rho(i,:),efic(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d_eta','svg');
 
@@ -88,7 +92,7 @@ xlabel('\rho(d1)')
 ylabel('R1')
 title('R1');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),R1(i,:))
+	plot(rho(i,:),R1(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d_R1','svg');
 
@@ -99,7 +103,7 @@ xlabel('\rho(d1)')
 ylabel('L1')
 title('L1');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),L1(i,:))
+	plot(rho(i,:),L1(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d_L1','svg');
 
@@ -110,7 +114,7 @@ xlabel('\rho(d1)')
 ylabel('K')
 title('K');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),k(i,:))
+	plot(rho(i,:),k(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d_k','svg');
 
@@ -121,11 +125,20 @@ xlabel('\rho(d1)')
 ylabel('Q1')
 title('Q1');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),Q1(i,:))
+	plot(rho(i,:),Q1(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d_Q1','svg');
 
-
+figure();
+hold on;
+grid on;
+xlabel('\rho(d1)')
+ylabel('C1')
+title('C1');
+for i=1:1:size(rho,1)
+	plot(rho(i,:),C1(i,:),'LineWidth',linewidth)
+end
+saveas(gcf,'../../data/graph/opt_d_C1','svg');
 
 waitbar(1,f,'Simulation ended');
 

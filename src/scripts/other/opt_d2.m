@@ -71,6 +71,7 @@ rho(rho == 0) = NaN;%Delete all non usefull 0
 fact=k.^2.*Q1.*Q2;
 efic=fact./(1+sqrt(1+fact)).^2;
 
+linewidth=1.0;
 figure();
 hold on;
 grid on;
@@ -78,7 +79,7 @@ xlabel('\rho(d2)')
 ylabel('\eta')
 title('\eta');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),efic(i,:))
+	plot(rho(i,:),efic(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d2_eta','svg');
 
@@ -89,7 +90,7 @@ xlabel('\rho(d2)')
 ylabel('R2')
 title('R2');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),R2(i,:))
+	plot(rho(i,:),R2(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d2_R2','svg');
 
@@ -100,7 +101,7 @@ xlabel('\rho(d2)')
 ylabel('L2')
 title('L2');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),L2(i,:))
+	plot(rho(i,:),L2(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d2_L2','svg');
 
@@ -111,7 +112,7 @@ xlabel('\rho(d2)')
 ylabel('K')
 title('K');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),k(i,:))
+	plot(rho(i,:),k(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d2_k','svg');
 
@@ -122,7 +123,7 @@ xlabel('\rho(d2)')
 ylabel('Q2')
 title('Q2');
 for i=1:1:size(rho,1)
-	plot(rho(i,:),Q2(i,:))
+	plot(rho(i,:),Q2(i,:),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_d2_Q2','svg');
 

@@ -3,16 +3,16 @@
 % For this script visualization of solutions has to be true or it crash....
 addpath('../functions')
 
-N_max=3;
-r1_max=2*15e-3; r2_max=2*5e-3; d1=2*1e-3;d2=2*0.5e-3;  h=1.6e-3;
-r1_min=2e-3;	r2_min=2e-3; r_res=0.5e-3; z=15e-3;
+N_max=5;
+r1_max=2*15e-3; r2_max=2*5e-3; d1=2*1e-4;d2=2*0.5e-4;  h=1.6e-3;
+r1_min=5e-3;	r2_min=5e-3; r_res=1e-3; z=15e-3;
 % 3A 45?
 
 
 %Create the coil structs compatible with FastHenry2
 freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
+w1=1e-4; h1=0.0347e-3; %Conductor dimensions 1OZ
+w2=1e-4; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7; 		%Conductivity
@@ -32,8 +32,8 @@ for N=1:1:N_max
 		j=1;
 		for r2=r2_min:r_res:r2_max
 			c=(N~=1)*h;%Compensate the inductor height
-			X = rectangular_planar_inductor(N,2*r1,2*r1,0,0,1e-3,h,0,0, c,0,0,0);
-			Y = rectangular_planar_inductor(N,2*r2,2*r2,0,0,1e-3,h,0,0,-z,0,0,0);
+			X = rectangular_planar_inductor(N,2*r1,2*r1,0,0,d1,h,0,0, c,0,0,0);
+			Y = rectangular_planar_inductor(N,2*r2,2*r2,0,0,d2,h,0,0,-z,0,0,0);
 			%X = circular_planar_inductor(N,2*r1,0,0,0,1e-3,RES,h,0,0,c,0,0,0);
 			%Y = circular_planar_inductor(N,2*r2,0,0,0,1e-3,RES,h,0,0,-z,0,0,0);
 			% Optimize the discretization for each coil
@@ -78,6 +78,7 @@ end
 fact=k.^2.*Q1.*Q2;
 efic=fact./(1+sqrt(1+fact)).^2;
 
+linewidth=1.0;
 figure();
 hold on;
 grid on;
@@ -85,7 +86,7 @@ xlabel('r1')
 ylabel('\eta')
 title('\eta');
 for i=1:1:r2_len
-	plot(r1_min:r_res:r1_max,squeeze(efic(1,:,i)))
+	plot(r1_min:r_res:r1_max,squeeze(efic(1,:,i)),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_R_eta','svg');
 
@@ -96,7 +97,7 @@ xlabel('r1')
 ylabel('K')
 title('K');
 for i=1:1:r2_len
-	plot(r1_min:r_res:r1_max,squeeze(k(1,:,i)))
+	plot(r1_min:r_res:r1_max,squeeze(k(1,:,i)),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_R_k','svg');
 
@@ -107,7 +108,7 @@ xlabel('r1')
 ylabel('Q1')
 title('Q1');
 for i=1:1:r2_len
-	plot(r1_min:r_res:r1_max,squeeze(Q1(1,:,i)))
+	plot(r1_min:r_res:r1_max,squeeze(Q1(1,:,i)),'LineWidth',linewidth)
 end
 saveas(gcf,'../../data/graph/opt_R_Q1','svg');
 

@@ -1,0 +1,40 @@
+* Equivalent circuit for state-space model from analysis of FastHenry file:
+* * FastHenry2 File Automatically Generated.... JCCopyrights 2019
+
+* Fasthenry generates  A dx/dt = x + B Vin,  Iout = C^t x + D Vin
+* Note that regardless of what the original system modeled (say inductance),
+* this file will use only R's, C's, and VCCS's to represent the system
+* This is a 2-port model with the port nodes listed pairwise
+* Correspondence to FastHenry nodes:
+*   Port 1:  n146  to  n250, port name: secundary
+*   Port 0:  n1  to  n145, port name: primary
+* pn mn is a plus/minus port pair of nodes, where n is the port number
+
+.subckt ROMequiv  p0 m0 p1 m1
+* The coefficient of x is the identity == 1 ohm resistors to ground.
+RH_0_0 state0 0 1
+RH_1_1 state1 0 1
+RH_2_2 state2 0 1
+RH_3_3 state3 0 1
+
+* The B matrix. VCCS dependent on port voltages
+GB_0_0  state0 0 p0 m0        -0.99916
+GB_1_1  state1 0 p1 m1        -1.07154
+* The C matrix. VCCS dependent on state variable
+GC_0_0   p0 m0 state0 0         0.99916
+GC_1_1   p1 m1 state1 0         1.07154
+GC_2_0   p0 m0 state2 0   -6.74996e-014
+GC_2_1   p1 m1 state2 0   -7.87211e-015
+GC_3_0   p0 m0 state3 0    4.94581e-015
+GC_3_1   p1 m1 state3 0   -8.86639e-014
+* The A matrix.  Coefficient of dx/dt.  constructed from capacitors. A = A^t
+CA_0_0 state0 0   1.29065e-005 ic=0
+CA_1_0 state1 state0    -4.902e-007 ic=0
+CA_1_1 state1 0   5.11848e-006 ic=0
+CA_2_0 state2 state0   2.99303e-007 ic=0
+CA_2_1 state2 state1   9.02312e-009 ic=0
+CA_2_2 state2 0   1.30698e-008 ic=0
+CA_3_1 state3 state1   1.42385e-007 ic=0
+CA_3_2 state3 state2   3.13257e-009 ic=0
+CA_3_3 state3 0   -1.2267e-008 ic=0
+.ends ROMequiv
