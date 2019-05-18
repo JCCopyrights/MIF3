@@ -1,2 +1,2 @@
-# FastHenry2_Matlab
-FastHenry2 Matlab interface
+# MIF3
+Matlab Interface For Fast Field Solvers

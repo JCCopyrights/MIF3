@@ -50,9 +50,9 @@ if export_spice
 else
 	directives='';
 end
-
+%directives='-i2';
 [L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,false);
-[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',1, '-d0.1'),'-o50 -p4.4',false);
+[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',4.4, '-d100 -e0.01'),'-o50 -p1',false);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 
 if export_spice
