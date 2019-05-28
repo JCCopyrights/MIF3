@@ -31,7 +31,7 @@ function [nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta)
 function [nwinc]=optimize_size(w,rw,delta)
 	sum=0;
 	if delta<w %No need to discretizate the cable
-		for nwinc=2:2:100
+		for nwinc=2:2:100 %Maximum allowed discretization 100x100
 			sum=sum+2*rw^((nwinc-2)/2)*delta; %nwinc even
 			if sum>=w
 				break;

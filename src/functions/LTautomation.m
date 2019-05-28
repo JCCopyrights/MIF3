@@ -11,11 +11,11 @@
 %% Code
 function raw_data=LTautomation(file_name)
 	addpath('../../utilities');
-	repo_path='C:\Users\johnc\Dropbox\TFM\source\FastHenry2_Matlab\';
+	repo_path='C:\Users\johnc\Dropbox\TFM\source\MIF3\';
 	sim_path=[repo_path 'sim\'];
 	batch_path=[repo_path 'utilities\']; %Because fucking space in Program Files
-	cmd =[batch_path 'spice.bat' ' '  sim_path file_name];
+	cmd =[batch_path 'spice.bat' ' ' sim_path file_name];
 	system(cmd);
 	len=length(file_name);
-	file_name(len-3:len)='.raw';
-	raw_data=LTspice2Matlab([sim_path file_name]);
+	file_name(len-3:len)='.raw'; %Searches the .raw file generated
+	raw_data=LTspice2Matlab([sim_path file_name]);%Imports all the data
