@@ -4,14 +4,14 @@
 % This function generates a solenoid circular spiral
 % geometry to be used as a coil. The coil will be generated with center
 % in (0,0,0) in XY plane. It can be moved using the x0,..,phix... parameters
-% The turns are flat until phir angle, then until the end of the turn it starts increasing in height.
+% The turns are flat until phir angle, then until the end of the turn it starts linearly increasing in height.
 %
 %% Parameters
 % * @param 	*N*		Number of Turns
 %
 % * @param 	*r0*	External radius of the coil
 %
-% * @param 	*h*		Height bewtween turns
+% * @param 	*h*		Height between turns
 %
 % * @param 	*phir*	Angle at which the turn ends
 %

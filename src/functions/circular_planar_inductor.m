@@ -20,7 +20,8 @@
 %
 % * @param 	*RES*	Number of  nodes of the Geometry (Discretization)
 %
-% * @param 	*h*		Distance between layers of the Coil
+% * @param 	*h*		Distance between layers of the Coil. Can be interoduced as a single value (equidistant) or an array
+%					With different distances between each layer.
 %
 % * @param 	*x0*	Center position X
 %
@@ -55,18 +56,28 @@ function X = circular_planar_inductor(N,r0,ri,d,phi0,RES,h,x0,y0,z0,phix,phiy,ph
 		end
 		i=i+1;
 	end
-	hlayer=h/(size(Nlayer,2)-1); %Height of each layer
+	
+	if length(h)==1
+		hlayer=h/(size(Nlayer,2)-1); %Height of each layer
+		zlayer=hlayer.*(0:1:(size(Nlayer,2)-1));
+	else
+		hlayer=h;
+		zlayer(1)=0;
+		for i=2:1:(size(Nlayer,2))
+			zlayer(i)=sum(hlayer(1:(i-1)));
+		end
+	end
 
 	X=round_spiral(Nlayer(1), r0, d, phi0, RES, 0, 0, 0, 0, 0, 0, false);
 	for i=2:1:size(Nlayer,2)
 		if mod(i,2)==1 %Assures the correct direction of the turns
-			X=[X,round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -hlayer*(i-1), 0, 0, 0, false)];
+			X=[X,round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -zlayer(i), 0, 0, 0, false)];
 		else
 			if Nlayer(i)== Nmax
-				X=[X,fliplr(round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -hlayer*(i-1), pi, 0, 0, false))];
+				X=[X,fliplr(round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -zlayer(i), pi, 0, 0, false))];
 			else %Connection to the last turn has to be manually made
 				Xaux=X(:,size(X,2))+[0;0;-hlayer]; %@TODO: Warning two points of the inductor could overlap
-				X=[X,Xaux,fliplr(round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -hlayer*(i-1), pi, 0, 0, false))];
+				X=[X,Xaux,fliplr(round_spiral(Nlayer(i), r0, d, phi0, RES, 0, 0, -zlayer(i), pi, 0, 0, false))];
 			end
 		end
 	end

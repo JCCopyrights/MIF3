@@ -6,6 +6,7 @@
 % The first layer will be generated with center in (0,0,0) in XY plane
 % The layers will be generated below (z<0) the first layer. 
 % It can be moved using the x0,..,phix... parameters
+% No more discretization for the segments is added as FastHenry discretizates automatically all the inputs.
 %
 %% Parameters
 % * @param 	*N*		Number of Turns
@@ -20,7 +21,8 @@
 %
 % * @param 	*d*		Distane bewtween turns
 %
-% * @param 	*h*		Total height of the coil (distance_between_coils*n_coils)
+% * @param 	*h*		Distance between layers of the Coil. Can be interoduced as a single value (equidistant) or an array
+%					With different distances between each layer.
 %
 % * @param 	*x0*	Center position X
 %
@@ -55,18 +57,29 @@ function X = rectangular_planar_inductor(N,A,L,A0,L0,d,h,x0,y0,z0,phix,phiy,phiz
 		end
 		i=i+1;
 	end
-	hlayer=h/(size(Nlayer,2)-1);
+	
+	if length(h)==1
+		hlayer=h/(size(Nlayer,2)-1); %Height of each layer
+		hlayer=hlayer.*ones(1,(size(Nlayer,2)));
+		zlayer=hlayer.*(0:1:(size(Nlayer,2)-1));
+	else
+		hlayer=h;
+		zlayer(1)=0;
+		for i=2:1:(size(Nlayer,2))
+			zlayer(i)=sum(hlayer(1:(i-1)));
+		end
+	end
 	
 	X=square_spiral(Nlayer(1),A,L,d,0,0,0,0,0,0,false);
 	%@TODO: Clean this fucking mess
 	for i=2:1:size(Nlayer,2)
 		if  mod(i,2)==1 %Assures the correct direction of the turns
-			Xaux=X(:,size(X,2))+[0;0;-hlayer];
-			X=[X,Xaux,square_spiral(Nlayer(i),A,L,d,0,0,-hlayer*(i-1),0,0,0,false)];
+			Xaux=X(:,size(X,2))+[0;0;-hlayer(i-1)];
+			X=[X,Xaux,square_spiral(Nlayer(i),A,L,d,0,0,-zlayer(i),0,0,0,false)];
 		else %Even layers are more complicated
-			Xaux=fliplr(square_spiral(Nlayer(i),A,L,d,0,0,-hlayer*(i-1),pi,0,0,false));
+			Xaux=fliplr(square_spiral(Nlayer(i),A,L,d,0,0,-zlayer(i),pi,0,0,false));
 			Xaux(:,1)=[];%pops first data
-			Xaux2(:,1)=X(:,size(X,2))+[0;0;-hlayer];
+			Xaux2(:,1)=X(:,size(X,2))+[0;0;-hlayer(i-1)];
 			if Nlayer(i)== Nmax
 				X=[X,Xaux2,Xaux,Xaux(:,size(Xaux,2))+[-d;0;0],Xaux(:,size(Xaux,2))+[-d;L;0] ];
 			else %Connection to the last turn has to be manually made

@@ -2,14 +2,16 @@
 T=1/6.79e6;
 periods=100;
 addpath('../functions');
-C2=0.38287;
-C2_mod=linspace(0.8*C2,1.2*C2,10);
+R0=8;
+R0_mod=linspace(0.5*R0,2*R0,10);
+file_name='WPT_Coupled_full.asc';
 
-for cycles=1:1:length(C2_mod)
+for cycles=1:1:length(R0_mod)
 	
-	LTmodify( 'WPT_Coupled_Inv_ZVS.asc', 'C2', [num2str(C2_mod(cycles)) 'n']) ;
+	%LTmodify( 'WPT_Coupled_Inv_ZVS.asc', 'C2', [num2str(C2_mod(cycles)) 'n']) ;
+	LTmodify( file_name, 'R0', [num2str(R0_mod(cycles))]) ;
 	
-	raw=LTautomation('WPT_Coupled_Inv_ZVS.asc');
+	raw=LTautomation(file_name);
 	sim_length=length(raw.time_vect);
 
 	%Use only last periods for the calculus
