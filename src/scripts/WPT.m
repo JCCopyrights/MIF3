@@ -20,8 +20,8 @@ w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
 w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
 rh=2; rw=2; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
-sigma=5.96e7; 		%Conductivity
-delta=sqrt(2*(1/5.8e7)/(2*pi*freq*mu0)); %Skin effect
+sigma=5.96e7;			%Conductivity (rho=2e-8)
+delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); %Skin effect
 % Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
 % This Parameter affects A LOT simulation times
 [nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);

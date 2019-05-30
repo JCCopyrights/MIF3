@@ -1,0 +1,22 @@
+*********************************************************************
+* Infineon Technologies Discrete & RF Semiconductors                *
+* SPICE2G6 Model:  Schottky Diode BAT60A series (Chip model)        *
+* Filename:        D359_v7.txt                                      *
+* Version:         7.0                                              *
+* Date:            Feb 2003                                         *
+* Author:          A. Boehme                                        *
+*********************************************************************
+* -Parallel-resistor R1 for a better reverse behaviour.             *
+* -The temperature-dependence of the reverse breakdown voltage and  *
+*  the ohmic series resistance (parameter RS) are in SPICE2G6 not   *
+*  adaptable.                                                       *
+* -Model needs a very low parameter Vj. The value is limited        *
+*  to 0.224 for model-use at 85 degC. This value can produce        *
+*  simulator-warnings at higher temperatures.                       *
+*********************************************************************
+.SUBCKT D359  1  2
+D1  1  2  D1
+R1  1  2  20e3
+.MODEL D1 D(IS=109.4u N=1.085 RS=37.6m XTI=1.5 EG=0.54
++ CJO=52.1p M=0.241 VJ=0.224 FC=0.5 TT=10.0p BV=11.0 IBV=10.0m)
+.ENDS D359

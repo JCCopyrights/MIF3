@@ -28,7 +28,7 @@ X = square_spiral(N,diam,diam,d,0,0,0,0,0,0, true);
 freq=100e3; 		%Frequency
 rh=10; rw=10; 		%Relation between discretization filaments
 mu0=4*pi*1e-7; 		%Permeability
-sigma=5.96e7; 		%Conductivity
+sigma=5.8e7;			%Conductivity (rho=2e-8)
 delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); 		%Skin effect
 [nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta);	%Optimize filament number
 inductor=generate_coil('primary',X,sigma,w,h,nhinc,nwinc,rh,rw);
