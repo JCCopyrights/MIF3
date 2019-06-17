@@ -1,5 +1,5 @@
-%% Final Results for WPT topology
-% Example to try with optimized parameters
+%% Spatial Sensibility Test
+% Modify alignment between coils in x,y,z, to calculate eficiency variations
 
 addpath('../functions')
 

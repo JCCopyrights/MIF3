@@ -15,7 +15,7 @@ function raw_data=LTautomation(file_name)
 	sim_path=[repo_path 'sim\'];
 	batch_path=[repo_path 'utilities\']; %Because fucking space in Program Files
 	cmd =[batch_path 'spice.bat' ' ' sim_path file_name];
-	system(cmd);
+	[trash, trash]=system(cmd); %Avoid seeing the commands
 	len=length(file_name);
 	file_name(len-3:len)='.raw'; %Searches the .raw file generated
 	raw_data=LTspice2Matlab([sim_path file_name]);%Imports all the data

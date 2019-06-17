@@ -1,4 +1,4 @@
-%% Example for Interface
+%% Example for MIFFF
 % This script is a example to run FastHenry2
 
 addpath('../functions')

@@ -1,3 +1,6 @@
+%%Runs all optimization scripts
+% Automates optimization with view and/or shape of inductors
+
 view=false;
 topology='rectangle';
 

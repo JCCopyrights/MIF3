@@ -1,7 +1,11 @@
 %% LTSPICE2MATLAB
 % function raw_data = LTspice2Matlab( filename, varargin )
 %
-% LTSPICE2MATLAB -- Reads an LTspice IV (21/03/19 Modified to work withLTspice XVII) .RAW waveform file containing
+% 21/03/19 Modified to work withLTspice XVII (fopen 'UTF16LE')
+% This could be causing some data to corrupt and appear as NaN	- This codification is no available
+% Disabled warnings ecause of the non availability.
+%
+% LTSPICE2MATLAB -- Reads an LTspice IV .RAW waveform file containing
 % data from a Transient Analysis (.tran) or
 % AC Analysis (.ac) simulation, and converts voltages and currents vs. time into Matlab variables.  
 % This function can read compressed binary, uncompressed binary, and ASCII file formats.  It does not 
@@ -170,11 +174,15 @@ function raw_data = LTspice2Matlab( filename, varargin )
     
     filename = fliplr(deblank(fliplr(deblank(filename))));   %Remove leading and trailing spaces from filename.
 	%fid = fopen(filename, 'rb'); %ltspiceiv
+	warning('off');
 	fid = fopen(filename, 'rb', 'n', 'UTF16LE'); 
+	warning('on') %Just to avoid the non sense warning
     if length(fid)==1 & isnumeric(fid) & fid==-1,
         %try to append ".raw" to the file name ...
         %fid = fopen(sprintf( '%s.raw', filename ), 'rb'); %ltspice iv
+		warning('off');
 		fid = fopen(sprintf( '%s.raw', filename ), 'rb', 'n', 'UTF16LE');
+		warning('on') %Just to avoid the non sense warning
         if length(fid)==1 & isnumeric(fid) & fid==-1,
             error( sprintf( 'Could not open file "%s"', filename ) );
         end
