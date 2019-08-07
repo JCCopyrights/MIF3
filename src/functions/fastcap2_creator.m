@@ -1,6 +1,7 @@
 %% FastCap2 Creator
 % file_name=fastcap2_creator(in_file_name,out_file_name,permitivity, command)
 %
+% Author: JCCopyrights Summer 2019
 % This function will take a FastHenry2.inp compatible input and generate .lst and .qui files for FastCap2
 % Beware that file_name must be a string 'This_is_a_File_Name'
 %% Parameters

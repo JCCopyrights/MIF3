@@ -1,6 +1,7 @@
 %% FastHenry2 Runner
 % [C]=fastcap2_runner(file_name,directives,show)
 %
+% Author: JCCopyrights Summer 2019
 % Tries to execute the file file_name with Fasthery2 automations
 % Extra parameters can be added via directives to the FastHenry2 execution
 % If show is true, the FastHenry2 window will open to follow the execution

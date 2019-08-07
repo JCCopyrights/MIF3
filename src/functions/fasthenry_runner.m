@@ -1,6 +1,7 @@
 %% FastHenry2 Runner
 % [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
 %
+% Author: JCCopyrights Summer 2019
 % Tries to execute the file file_name with Fasthery2 automations
 % Extra parameters can be added via directives to the FastHenry2 execution
 % If show is true, the FastHenry2 window will open to follow the execution
@@ -23,7 +24,7 @@ function [L,R,Frequency]=fasthenry_runner(file_name,directives,show)
 	if show
 		ax.invoke('ShowWindow');
 	end
-	ax.invoke('Run',[pwd '/' file_name ' '  directives]);
+	ax.invoke('Run',['"' pwd '/' file_name '"' ' '  directives]);
 	while(ax.invoke('IsRunning'))
 	pause(0.1);%@TODO use same handler, this doesn`t work if the simulation is too fast
 	end

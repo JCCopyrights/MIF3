@@ -1,6 +1,7 @@
 %% Optimize Discretization
 % [nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta)
 %
+% Author: JCCopyrights Summer 2019
 % Optimizes the discretization of the conductors leaving delta as the smallest filament
 % Returns the discretization values nhinc and nwinc
 % rh,rw is the relation of height and width of following filaments

@@ -6,15 +6,8 @@ periods=100;
 addpath('../functions');
 R0=8;
 R0_mod=R0; %linspace(1,100,100);
-file_name='WPT_Coupled_full_driver.asc';
-wait=waitbar(0,'Initialization');
+file_name='WPT_inv_rect_aux.asc';
 for cycles=1:1:1
-	text = sprintf('R0: %i', cycles);
-    waitbar(cycles/length(R0_mod),wait,text);
-	
-    %LTmodify( file_name, 'C2', [num2str(C2_mod(cycles)) 'n']) ;
-	%LTmodify( file_name, 'R0', [num2str(R0_mod(cycles))]) ;
-	
 	raw=LTautomation(file_name);
 	sim_length=length(raw.time_vect);
 
@@ -86,7 +79,6 @@ for cycles=1:1:1
 	efic_aux(cycles)=Prectinv(cycles)/Plinkoutv(cycles);
 	efic_rect(cycles)=Poutv(cycles)/Prectinv(cycles);
 end
-waitbar(1,wait,'Simulation ended');
 
 linewidth=1.0;
 figure();

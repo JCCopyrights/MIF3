@@ -1,6 +1,7 @@
 %% Circular Planar Inductor
 % X = circular_planar_inductor(N,r0,ri,d,phi0,RES,h,x0,y0,z0,phix,phiy,phiz,view)
 %
+% Author: JCCopyrights Summer 2019
 % This function generates a planar circular multilayer spiral - PCB Inductor
 % The coil will have enough layers to acomodate all N turns.
 % The first layer will be generated with center in (0,0,0) in XY plane

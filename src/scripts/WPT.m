@@ -5,7 +5,7 @@ addpath('../functions')
 
 N1=6; N2=8;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
-z=15e-3;
+z=7.5e-3;
 RES=200;
 % 3A 45?
 %Nmax=r1/(d1*2)
@@ -52,7 +52,7 @@ else
 end
 %directives='-i2';
 [L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),directives,false);
-[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',4.4, '-d1 -e0.1 -f'),'-o40 -p1',true);
+%[C]=fastcap2_runner( fastcap2_creator('SurpriseMotherFucker.inp','SurpriseMotherFucker',4.4, '-d1 -e0.1 -f'),'-o40 -p1',true);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 
 if export_spice
@@ -67,7 +67,7 @@ disp('Inductances Matrix')
 LC=squeeze((L(1,:,:)));
 disp(LC);
 disp('Capacitance Matrix')
-disp(C);
+%disp(C);
 R1=RC(1,1); R2=RC(2,2);
 L1=LC(1,1); L2=LC(2,2); M=LC(1,2);
 Ro=13.69*4/pi;

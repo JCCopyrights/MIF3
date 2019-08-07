@@ -1,8 +1,10 @@
 %%INterface with LTSPice .asc files
-% component_find = LTmodify( file_name, component, value ) )
+% component_find = LTmodify( file_name, component, value )
 %
+% Author: JCCopyrights Summer 2019
 % This function will search for a specific component in a .asc simulation file and 
 % modify its value
+%
 %% Parameters
 % * @param 	*file_name*		Name of .asc file to be executed. It must be in the /sim folder of the project
 %

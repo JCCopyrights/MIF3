@@ -1,7 +1,9 @@
 %% Generate Coil
 % s=generate_coil(coil_name,X,sigma,w,h,nhinc,nwinc,rh,rw)
 %
+% Author: JCCopyrights Summer 2019
 % Packages geometry,conductor information and discretization information into a struct
+% Also calculates the length and area of the coil geometry
 % the sctruct is compatible with the function fasthenry_Creator @TODO: Convert coils into a class
 %% Parameters
 % * @param 	*coil_name*	Coil Identifier
@@ -33,7 +35,15 @@ function s=generate_coil(coil_name,X,sigma,w,h,nhinc,nwinc,rh,rw)
 	field4 = 'nhinc';	field5 = 'nwinc';  	%Conductor Discretization
 	field6 = 'rh';		field7 = 'rw'; 		%Discretization range
 	%field8 = 'wx';		field9 = 'wy';		field10 = 'wz';
-	s = struct(field0,coil_name,field1,sigma,field2,w,field3,h,field4,nhinc,field5,nwinc,field6,rh,field7,rw,field,X);
+	field11= 'length';
+	field12= 'area';
+	long=0;
+	for i=1:1:length(X)-1
+		long=long+norm(X(:,i+1)-X(:,i));
+	end
+	area=w*h;
+	
+	s = struct(field0,coil_name,field1,sigma,field2,w,field3,h,field4,nhinc,field5,nwinc,field6,rh,field7,rw,field,X,field11,long,field12,area);
 %% Discretization 	
 % 
 % <<..\..\doc\functions\res\discretizacion.PNG>>

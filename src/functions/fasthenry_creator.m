@@ -1,6 +1,7 @@
 %% FastHenry2 Creator
 % file_name=fasthenry_creator(file_name,coils,freq)
 %
+% Author: JCCopyrights Summer 2019
 % This function will take coils as input and generate a FastHenry2 compatible output
 % Beware that file_name must be a string 'This_is_a_File_Name'
 % Coils must be a cell array of an arbitrary number of coils units in meters [m]

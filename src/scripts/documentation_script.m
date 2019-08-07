@@ -10,7 +10,7 @@ options = struct('format','pdf','outputDir','..\..\doc\functions', 'evalCode', f
 for i=1:1:size(directory,1)
 	text = sprintf('Document: %s', directory(i).name);
 	waitbar((i-2)/size(directory,1),f,text);
-	if ~directory(i).isdir
+	if ~directory(i).isdir && directory(i).name(length(directory(i).name))=='m'
 		publish([directory(i).folder '\' directory(i).name], options );
 	end
 end

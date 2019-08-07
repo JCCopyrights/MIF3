@@ -1,6 +1,7 @@
 %% Square Spiral Incremental Layer
 % X = rectangular_planar_inductor(N,A,L,A0,L0,d,h,x0,y0,z0,phix,phiy,phiz,view)
 %
+% Author: JCCopyrights Summer 2019
 % This function generates a planar rectangular multilayer spiral - PCB Inductor
 % The coil will have enough layers to acomodate all N turns.
 % The first layer will be generated with center in (0,0,0) in XY plane

@@ -23,6 +23,7 @@
 % This function has been tested with LTspice IV version 4.01p, and Matlab versions 6.1 and 7.5.  Regression
 % testing has been used to expose the function to a wide range of LTspice settings.
 % Author:  Paul Wagner  4/25/2009
+% 		   JCCopyrights Summer 2019
 %
 % 
 %% Calling Convention:

@@ -1,6 +1,7 @@
 %% Helicoidal Spiral
 % X = helix_spiral(N,r0,h,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
 %
+% Author: JCCopyrights Summer 2019
 % This function generates a Helicoidal circular spiral
 % geometry to be used as a coil. The coil will be generated with center
 % in (0,0,0) in XY plane. It can be moved using the x0,..,phix... parameters
