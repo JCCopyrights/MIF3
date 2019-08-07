@@ -6,6 +6,7 @@ The added functions for the interface include:
 
 ### Geometries:
 Functions that model the geometries of the inductors.
+
 	* Solenoid Spiral:		X = solenoid_spiral(N,r0,h,phir,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
 		* Spring with flat turns
 	* Round Spiral 			X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
@@ -21,6 +22,7 @@ Functions that model the geometries of the inductors.
 
 ### FastHenryv2 Interface:
 Functions that create the data structures and interfaces to work with Fast Field Solvers
+
 	* Generate Coil:		s=generate_coil(coil_name,X,sigma,w,h,nhinc,nwinc,rh,rw)
 		* Generates a struct with the coil geometry and general propierties
 	* Discretization Tools:		[nhinc,nwinc]=optimize_discr(w,h,rh,rw,delta)
@@ -35,6 +37,7 @@ Functions that create the data structures and interfaces to work with Fast Field
 		* Runs the fastcap model and retrieves the maxwell capacitance matrix
 ### Utilities:
 Other Functions and utilities
+
 	* Import Bode100:		data=import_bode100(filename)
 		* Imports data from a csv file generated with bode100 suite
 	* Generate Model Bode100:	model=model_bode100(data,freq_L)
@@ -50,6 +53,7 @@ Other Functions and utilities
 
 ## TaskList
 A Lot still @TODO
+
 	- [x] Tipical Planar Geometries
 	- [x] Tipical Helicoidal Geometries
 	- [x] Interface with FastHenryV2
