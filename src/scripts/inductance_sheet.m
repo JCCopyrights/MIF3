@@ -30,9 +30,9 @@ Y{1}=round_spiral(N, R, d, 0, RES, Cell_size*N_Cells_X/2, Cell_size*N_Cells_X/2,
 figure();
 hold on;
 for i=1:1:length(X)
-	plot3(X{i}(1,:),X{i}(2,:),X{i}(3,:),'b');
+	plot3(X{i}(1,:),X{i}(2,:),X{i}(3,:),'b','LineWidth',2);
 end
-plot3(Y{1}(1,:),Y{1}(2,:),Y{1}(3,:),'r');
+plot3(Y{1}(1,:),Y{1}(2,:),Y{1}(3,:),'r','LineWidth',2);
 grid on
 xlabel('X')
 ylabel('Y')

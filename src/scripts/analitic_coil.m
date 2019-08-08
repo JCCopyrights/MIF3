@@ -12,21 +12,22 @@ mu0=4*pi*1e-7; 		%Permeability
 sigma=5.96e7;			%Conductivity (rho=2e-8)
 delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); %Skin effect
 % Optimize the discretization 
-[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);
+[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta/2);
 primary=generate_coil('primary',X,sigma,w1,h1,nhinc,nwinc,rh,rw);
 % Package all the coils in a cell array
 coils={primary};
 % Visualization of the topology
 figure();
 hold on;
-plot3(X(1,:),X(2,:),X(3,:));
+plot3(X(1,:),X(2,:),X(3,:),'LineWidth',2);
 grid on
+grid minor
 xlabel('X')
 ylabel('Y')
 zlabel('Z')
-title('WPT Topology');
-legend({primary.coil_name},'Location','east')
-legend('boxoff')
+title('Inductor N6');
+%legend({primary.coil_name},'Location','east')
+%legend('boxoff')
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%FASTHENRYV2 SIMULATION
 directives='';
@@ -59,11 +60,15 @@ k=N^2/(0.64*(A*(h*1000)^3+B*(h*1000)^2+C*(h*1000)+D)*(1.67*N^2-5.584*N+65)); %Di
 M_aprox=k*L;
 Ltotal=layers*L+2*M_aprox;
 long=primary.length;
-p=sqrt(w1*h1)*(1.26*delta);
-Ff=1-exp(-0.048*p);
-Kc=1+Ff*(0.06+0.22*log(w1/h1)+0.28*h1^2/w1);
-xc=2*delta*(1/h1+1/w1);
+p=sqrt(w1*h1)/(1.26*delta);
+%Ff=1-exp(-0.048*p);%Haefner
+Ff=1-exp(-0.026*p); %Payne
+%Kc=1+Ff*(0.06+0.22*log(w1/h1)+0.28*h1^2/w1); %Haefner
+Kc=1+Ff*(1.2/exp(2.1*w1/h1)+1.2/exp(2.1*h1/w1));%Payne
+%xc=2*delta*(1/h1+1/w1); %Haefner
+xc=(2*delta*(1/h1+1/w1)+8*(delta/h1)^3/(w1/h1))/(((w1/h1)^0.33)*exp(-3.5*h1/delta)+1);%Payne
 Rac=(long/(sigma*w1*h1))*(Kc/(1-exp(-xc))); %Crowding effect
+Rdc=(long/(sigma*w1*h1));
 toc;
 disp('Analytical Resistance Matrix')
 disp(Rac);

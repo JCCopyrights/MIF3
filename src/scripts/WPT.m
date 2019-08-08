@@ -34,8 +34,8 @@ coils={primary,secundary};
 % Visualization of the topology
 figure();
 hold on;
-plot3(X(1,:),X(2,:),X(3,:));
-plot3(Y(1,:),Y(2,:),Y(3,:));
+plot3(X(1,:),X(2,:),X(3,:),'LineWidth',2);
+plot3(Y(1,:),Y(2,:),Y(3,:),'LineWidth',2);
 grid on
 xlabel('X')
 ylabel('Y')
