@@ -3,6 +3,9 @@ Matlab Interface For Fast Field Solvers.
 This is a series of functions and scripts to work with MIT's Fast Field Solvers to automate and help with the use.
 It has been desisgned with Wireless Power Transfer functionalities in mind.
 
+To use this repository first install Fast Field Solvers Bundle from https://www.fastfieldsolvers.com/download.htm
+This repository has been tested using MATLAB R2018b.
+
 The added functions for the interface include:
 ## Functions
 
