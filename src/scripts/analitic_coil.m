@@ -1,3 +1,5 @@
+%% Compares MIF3 Results with Analytical
+
 addpath('../functions')
 %Geometry
 w1=1e-3; h1=0.0347e-3;		%Conductor dimensions

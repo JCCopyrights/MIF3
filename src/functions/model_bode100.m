@@ -29,7 +29,7 @@ function model=model_bode100(data,freq_L)
 		model.f_res=data.raw.f(i_res);
 	else
 		warning('Resonance freq not in measurement range. Cp is WHATEVER');
-		model.f_res=1.3*data.raw.f(length(data.raw.f)); %Random shit.
+		model.f_res=1.15*data.raw.f(length(data.raw.f)); %Random shit.
 	end;
 	% Notice that here we are ignoring the parasitic effects of Cp and R when assuming Ls is L at freq_op
 	% This should be checked and studied. I am not going to. Because Fuck You.

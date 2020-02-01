@@ -85,7 +85,7 @@ function X = solenoid_spiral(N,r0,h,phir,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\solenoid.PNG>>
+% <<..\..\..\doc\functions\res\solenoid.PNG>>
 % 
 
 

@@ -48,8 +48,8 @@ function [nwinc]=optimize_size(w,rw,delta)
 	end
 %% Discretization 	
 % 
-% <<..\..\doc\functions\res\discretizacion.PNG>>
+% <<..\..\..\doc\functions\res\discretizacion.PNG>>
 % 
-% <<..\..\doc\functions\res\discr_opt.PNG>>
+% <<..\..\..\doc\functions\res\discr_opt.PNG>>
 % 
 

@@ -2,26 +2,23 @@
 % Example to try with optimized parameters
 
 addpath('../functions')
-
+%% 3D Geometry Generation
 N1=6; N2=8;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
-z=7.5e-3;
+z=15e-3;
 RES=200;
-% 3A 45?
-%Nmax=r1/(d1*2)
-%c=(N>Nmax)*h;%Compensate the inductor height
 X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,0,0, h,0,0,0);
 Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,-z,0,0,0);
-%X = circular_planar_inductor(N1,r1,r1/2,d1,0,RES,h,0,0,h,0,0,0);
-%Y = circular_planar_inductor(N2,r2,r2/2,d2,0,RES,h,0,0,-z,0,0,0);
 %Create the coil structs compatible with FastHenry2
-freq=6.79e6;			%Frequency
-w1=1e-3; h1=0.0347e-3; %Conductor dimensions 1OZ
-w2=0.5e-3; h2=0.0347e-3; %Conductor dimensions 1OZ
-rh=2; rw=2; 		%Relation between discretization filaments
-mu0=4*pi*1e-7; 		%Permeability
-sigma=5.96e7;			%Conductivity (rho=2e-8)
+freq=6.79e6;                %Frequency
+w1=1e-3; h1=0.0347e-3;      %Conductor dimensions 1OZ
+w2=0.5e-3; h2=0.0347e-3;    %Conductor dimensions 1OZ
+rh=2; rw=2;                 %Relation between discretization filaments
+mu0=4*pi*1e-7;              %Permeability
+sigma=5.96e7;               %Conductivity (rho=2e-8)
 delta=sqrt(2*(1/sigma)/(2*pi*freq*mu0)); %Skin effect
+
+%% Optimize Mesh
 % Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
 % This Parameter affects A LOT simulation times
 [nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);
@@ -31,7 +28,7 @@ secundary=generate_coil('secundary',Y,sigma,w2,h2,nhinc,nwinc,rh,rw);
 % Package all the coils in a cell array
 coils={primary,secundary};
 
-% Visualization of the topology
+%% Visualization of the topology
 figure();
 hold on;
 plot3(X(1,:),X(2,:),X(3,:),'LineWidth',2);
@@ -43,6 +40,8 @@ zlabel('Z')
 title('WPT Topology');
 legend({primary.coil_name,secundary.coil_name},'Location','east')
 legend('boxoff')
+
+%% Fast Henry Runner
 
 export_spice=false;
 if export_spice
@@ -59,6 +58,7 @@ if export_spice
 	movefile equiv_circuitROM.spice ..\..\sim %Move the spice model to the simulation folder
 end
 
+%% Results
 
 disp('Resistance Matrix')
 RC=squeeze((R(1,:,:)));
@@ -87,6 +87,7 @@ for j=1:1:size(Frequency,1)
 		end
 	end
 end
+
 Vin=4/pi*3.7;
 k=M/sqrt(L2*L1);
 Q1=2*pi*freq*L1/R1;

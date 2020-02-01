@@ -65,7 +65,7 @@ function X = helix_spiral(N,r0,h,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\hex.PNG>>
+% <<..\..\..\doc\functions\res\hex.PNG>>
 % 
 
 

@@ -103,7 +103,7 @@ function X = circular_planar_inductor(N,r0,ri,d,phi0,RES,h,x0,y0,z0,phix,phiy,ph
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\circular_planar_inductor.PNG>>
+% <<..\..\..\doc\functions\res\circular_planar_inductor.PNG>>
 % 
 
 

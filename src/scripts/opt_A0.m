@@ -61,7 +61,7 @@ efic=fact./(1+sqrt(1+fact)).^2;
 rho(rho == 0) = NaN;%Delete all non usefull 0
 waitbar(1,f,'Simulation ended');
 
-linewidth=1.0;
+linewidth=1.5;
 figure();
 hold on;
 grid on;

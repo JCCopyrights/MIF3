@@ -5,6 +5,7 @@
 % This could be causing some data to corrupt and appear as NaN	- This codification is no available
 % Disabled warnings ecause of the non availability.
 %
+%
 % LTSPICE2MATLAB -- Reads an LTspice IV .RAW waveform file containing
 % data from a Transient Analysis (.tran) or
 % AC Analysis (.ac) simulation, and converts voltages and currents vs. time into Matlab variables.  
@@ -22,8 +23,8 @@
 % 
 % This function has been tested with LTspice IV version 4.01p, and Matlab versions 6.1 and 7.5.  Regression
 % testing has been used to expose the function to a wide range of LTspice settings.
-% Author:  Paul Wagner  4/25/2009
-% 		   JCCopyrights Summer 2019
+% Original Author:  Paul Wagner  4/25/2009 https://www.mathworks.com/matlabcentral/fileexchange/23394-fast-import-of-compressed-binary-raw-files-created-with-ltspice-circuit-simulator 
+% 		   Modified by JCCopyrights Summer 2019
 %
 % 
 %% Calling Convention:

@@ -65,7 +65,7 @@ function X = round_spiral(N,r0,d,phi0,RES,x0,y0,z0,phix,phiy,phiz,view)
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\round.PNG>>
+% <<..\..\..\doc\functions\res\round.PNG>>
 % 
 
 

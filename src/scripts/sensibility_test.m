@@ -3,12 +3,12 @@
 
 addpath('../functions')
 
-y_min=-10e-3; y_max=10e-3; 
-x_min=-10e-3; x_max=10e-3; 
-z_min=5e-3; z_max=25e-3; 
-res=5e-3; 
+y_min=-5e-3; y_max=5e-3; 
+x_min=-5e-3; x_max=5e-3; 
+z_min=10e-3; z_max=20e-3; 
+res=1e-3; 
 %Coil Dimensions
-N1=2; N2=2;
+N1=12; N2=8;
 r1=15e-3; r2=5e-3; d1=2*1e-3;d2=2*0.5e-3; h=1.6e-3;
 
 %Create the coil structs compatible with FastHenry2
@@ -31,9 +31,9 @@ for z=z_min:res:z_max
 	for x=x_min:res:x_max
 		j=1;
 		for y=y_min:res:y_max
-			c=(N~=1)*h;%Compensate the inductor height
-			X = rectangular_planar_inductor(N1,2*r1,2*r1,0,0,1e-3,h,x,y,z+c,0,0,0);
-			Y = rectangular_planar_inductor(N2,2*r2,4*r2,0,0,1e-3,h,0,0,-z,0,0,0);
+			c=(N1~=1)*h;%Compensate the inductor height
+			X = rectangular_planar_inductor(N1,2*r1,2*r1,r1,r1,d1,h,x,y,z+c,0,0,0);
+			Y = rectangular_planar_inductor(N2,2*r2,4*r2,r2,r2,d2,h,0,0,0,0,0,0);
 			% Optimize the discretization for each coil (In this case is not necesary, equal w,h for every coil)
 			% This Parameter affects A LOT simulation times
 			[nhinc,nwinc]=optimize_discr(w1,h1,rh,rw,delta);

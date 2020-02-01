@@ -111,7 +111,7 @@ function X = rectangular_planar_inductor(N,A,L,A0,L0,d,h,x0,y0,z0,phix,phiy,phiz
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\rectangular_planar_inductor.PNG>>
+% <<..\..\..\doc\functions\res\rectangular_planar_inductor.PNG>>
 % 
 
 

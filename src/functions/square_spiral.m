@@ -74,7 +74,7 @@ function X = square_spiral(N,A,L,d,x0,y0,z0,phix,phiy,phiz,view)
 end
 %% Geometry
 % 
-% <<..\..\doc\functions\res\square.PNG>>
+% <<..\..\..\doc\functions\res\square.PNG>>
 % 
 
 

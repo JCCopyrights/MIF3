@@ -1,5 +1,6 @@
 %% Final Results for WPT topology
 % Example to try with optimized parameters
+
 addpath('../functions')
 N1=6;
 r1=15e-3; d1=2*1e-3; h=1.6e-3;

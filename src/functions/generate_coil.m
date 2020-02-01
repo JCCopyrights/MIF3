@@ -46,7 +46,7 @@ function s=generate_coil(coil_name,X,sigma,w,h,nhinc,nwinc,rh,rw)
 	s = struct(field0,coil_name,field1,sigma,field2,w,field3,h,field4,nhinc,field5,nwinc,field6,rh,field7,rw,field,X,field11,long,field12,area);
 %% Discretization 	
 % 
-% <<..\..\doc\functions\res\discretizacion.PNG>>
+% <<..\..\..\doc\functions\res\discretizacion.PNG>>
 % 
 %% AWG Standard sizes
 %{	

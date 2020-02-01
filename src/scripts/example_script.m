@@ -48,7 +48,8 @@ legend({coil1.coil_name,coil2.coil_name,coil3.coil_name,coil4.coil_name},'Locati
 legend('boxoff')
 
 % Runs FastHery2 over the topology for freq.
-[L,R,Frequency]=fasthenry_runner(fasthenry_creator('SurpriseMotherFucker',coils,freq),'',false);
+file_name=fasthenry_creator('SurpriseMotherFucker',coils,freq);
+[L,R,Frequency]=fasthenry_runner(file_name,'',false);
 %To acces like a semi-functional human being to the matrix => squeeze((L(i,:,:))) squeeze((R(i,:,:)))
 
 %Calculate COUPLING for each Coil and Frequency
